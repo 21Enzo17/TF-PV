@@ -50,7 +50,7 @@ body {
 .btn-secundario {
     background-color: var(--color-secundario);
     border: 2px solid var(--color-principal);
-    color: #fff;
+    color: var(--color-principal);
 }
 
 .btn-principal:hover {
@@ -60,9 +60,9 @@ body {
 }
 
 .btn-secundario:hover {
-    background-color: var(--color-principal);
-    border: 2px solid transparent;
-    color: var(--color-secundario);
+    background-color: var(--color-secundario);
+    border: 2px solid var(--color-principal);
+    color: #fff;
 }
 
 .nav-link:hover{
