@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+}
+
+.h1 {
+    font-family: 'Indie Flower', sans-serif;
+    font-weight: bolder;
+    font-size: 56px !important;
+}
+
+:root {
+    --color-principal: #2FC871;
+    --color-secundario: #3E454D;
+}
+
+.bg-principal {
+    background-color: var(--color-principal);
+}
+
+.bg-secundario {
+    background-color: var(--color-secundario);
+}
+
+.text-principal {
+    color: var(--color-principal);
+}
+
+.text-secundario {
+    color: var(--color-secundario);
+}
+
+.btn-principal {
+    background-color: var(--color-principal);
+    border: 2px solid transparent;
+    color: var(--color-secundario);
+}
+
+.btn-secundario {
+    background-color: var(--color-secundario);
+    border: 2px solid var(--color-principal);
+    color: #fff;
+}
+
+.btn-principal:hover {
+    background-color: var(--color-secundario);
+    border: 2px solid var(--color-principal);
+    color: #fff;
+}
+
+.btn-secundario:hover {
+    background-color: var(--color-principal);
+    border: 2px solid transparent;
+    color: var(--color-secundario);
+}
+
+.nav-link:hover{
+    color: #fff;
+}
+
+main {
+    width: 100%;
+    height: 60vh;
+    background-image: url("../images/banner/plato-saludable.jpg");
+    background-size: cover;
+}
+
+.contenido {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+footer {
+    background-image: url("../images/footer/plato.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.footer-content {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.box-footer ul {
+    list-style: none;
+}
+
+.box-footer ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.box-footer ul li {
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+}
