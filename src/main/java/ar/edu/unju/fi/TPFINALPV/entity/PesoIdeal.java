@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.TPFINALPV.entity;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,10 @@ import jakarta.validation.constraints.Past;
 
 @Component
 @Entity
-@Table(name="Registro Peso Ideal Usuarios")
+@Table(name = "Registro Peso Ideal Usuarios")
 public class PesoIdeal {
 
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -26,22 +27,21 @@ public class PesoIdeal {
     @Column
     private Usuario usuario;
 
-    @Column(name="Fecha de consulta")
-	@Past(message="No puede ser posterior a la actualidad")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private LocalDate fecha;
-    
-    @Column(name="Edad Usuario")
-    private int edad;
-    
-    @Column(name="Estatura usuario")
-    private float estatura;
+    @Column(name = "Fecha de consulta")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fecha=LocalDate.now();
 
-    @Column(name="peso ideal")
+    @Column(name = "Edad Usuario")
+    private int edad;
+
+    @Column(name = "Estatura usuario")
+    private float estatura=usuario.getEstatura();
+
+    @Column(name = "peso ideal")
     private float valor;
 
-    @Column(name="Estado")
-    private boolean estado;
+    @Column(name = "Estado")
+    private boolean estado=true;
 
     public PesoIdeal(Long id, Usuario usuario,
             @Past(message = "No puede ser posterior a la actualidad") LocalDate fecha, int edad, float estatura,
@@ -82,7 +82,7 @@ public class PesoIdeal {
         this.edad = edad;
     }
 
-    public int getEstatura() {
+    public float getEstatura() {
         return estatura;
     }
 
@@ -106,5 +106,16 @@ public class PesoIdeal {
         this.estado = estado;
     }
 
+    private float getPesoIdeal(){ 
+
+        float estatura = usuario.getEstatura();
+        LocalDate hoy = LocalDate.now();
+        LocalDate nacimiento = usuario.getFechaNacimiento();
+        long edad = ChronoUnit.YEARS.between(nacimiento, hoy);
+ 
+        float pesoIdeal= (estatura-100)+(((float)edad/10)) ;
+
+        return pesoIdeal;
+    }
 
 }
