@@ -1,8 +1,11 @@
 package ar.edu.unju.fi.TPFINALPV.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Component
@@ -14,30 +17,35 @@ public class Receta {
     @Column(name = "id")
     private Long id;
     @Column(name = "nombre")
+    @NotBlank(message = "El nombre no puede estar vacío")
     private String nombre;
-    @Column(name = "categoria")
-    private String categoria;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id_fk")
+    private Categoria categoria;
     @Column(name = "ingredientes")
-    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "recetas", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingrediente> ingredientes;
     @Column(name = "preparacion")
+    @NotBlank(message = "La preparación no puede estar vacía")
     private String preparacion;
     @Column(name = "imagen")
+    @NotBlank(message = "Debe seleccionar una imagen")
     private String imagen;
     @Column(name = "estado")
     private boolean estado;
 
     public Receta() {
+        this.estado = true;
     }
 
-    public Receta(Long id, String nombre, String categoria, List<Ingrediente> ingredientes, String preparacion, String imagen, boolean estado) {
+    public Receta(Long id, String nombre, Categoria categoria, List<Ingrediente> ingredientes, String preparacion, String imagen) {
         this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
         this.ingredientes = ingredientes;
         this.preparacion = preparacion;
         this.imagen = imagen;
-        this.estado = estado;
+        this.estado = true;
     }
 
     public Long getId() {
@@ -56,11 +64,11 @@ public class Receta {
         this.nombre = nombre;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
@@ -101,8 +109,7 @@ public class Receta {
         return "Receta{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", categoria='" + categoria + '\'' +
-                ", ingredientes=" + ingredientes +
+                ", categoria=" + categoria +
                 ", preparacion='" + preparacion + '\'' +
                 ", imagen='" + imagen + '\'' +
                 ", estado=" + estado +

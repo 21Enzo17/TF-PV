@@ -4,37 +4,33 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Component
 @Entity
-@Table(name = "INGREDIENTES")
-public class Ingrediente {
+@Table(name = "CATEGORIAS")
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "nombre")
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank(message = "Debe ingresar un nombre")
     private String nombre;
+    @OneToMany(mappedBy = "categoria",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Receta> recetas;
     @Column(name = "estado")
     private boolean estado;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "RECETA_INGREDIENTE",
-            joinColumns = @JoinColumn(name = "ingrediente_id_fk"),
-            inverseJoinColumns = @JoinColumn(name = "receta_id_fk"))
-    private List<Receta> recetas;
 
-    public Ingrediente() {
+    public Categoria() {
         this.estado = true;
     }
 
-    public Ingrediente(Long id, String nombre, List<Receta> recetas) {
+    public Categoria(Long id, String nombre, List<Receta> recetas, boolean estado) {
         this.id = id;
         this.nombre = nombre;
-        this.estado = true;
         this.recetas = recetas;
+        this.estado = estado;
     }
 
     public Long getId() {
@@ -53,6 +49,14 @@ public class Ingrediente {
         this.nombre = nombre;
     }
 
+    public List<Receta> getRecetas() {
+        return recetas;
+    }
+
+    public void setRecetas(List<Receta> recetas) {
+        this.recetas = recetas;
+    }
+
     public boolean isEstado() {
         return estado;
     }
@@ -61,17 +65,9 @@ public class Ingrediente {
         this.estado = estado;
     }
 
-    public List<Receta> getRecetas() {
-        return recetas;
-    }
-
-    public void setRecetas(List<Receta> receta) {
-        this.recetas = receta;
-    }
-
     @Override
     public String toString() {
-        return "Ingrediente{" +
+        return "Categoria{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", estado=" + estado +
