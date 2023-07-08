@@ -68,6 +68,9 @@ body {
 .nav-link:hover{
     color: #fff;
 }
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    background-color: var(--color-secundario) !important; 
+}
 
 main {
     width: 100%;
