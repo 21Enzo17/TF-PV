@@ -25,7 +25,7 @@ public class PesoIdeal {
     private Long id;
 
     @Column
-    private Usuario usuario;
+    private String usuario;
 
     @Column(name = "Fecha de consulta")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,89 +33,76 @@ public class PesoIdeal {
 
     @Column(name = "Edad Usuario")
     private int edad;
-
-    @Column(name = "Estatura usuario")
-    private float estatura=usuario.getEstatura();
-
+    
     @Column(name = "peso ideal")
     private float valor;
 
     @Column(name = "Estado")
     private boolean estado=true;
+    
+    
 
-    public PesoIdeal(Long id, Usuario usuario,
-            @Past(message = "No puede ser posterior a la actualidad") LocalDate fecha, int edad, float estatura,
-            float valor, boolean estado) {
-        this.id = id;
-        this.usuario = usuario;
-        this.fecha = fecha;
-        this.edad = edad;
-        this.estatura = estatura;
-        this.valor = valor;
-        this.estado = estado;
-    }
+	public PesoIdeal() {
+		super();
+	}
 
-    public PesoIdeal() {
-    }
+	public PesoIdeal(Long id, String usuario, LocalDate fecha, int edad, float valor, boolean estado) {
+		super();
+		this.id = id;
+		this.usuario = usuario;
+		this.fecha = fecha;
+		this.edad = edad;
+		this.valor = valor;
+		this.estado = estado;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	public String getUsuario() {
+		return usuario;
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 
-    public int getEdad() {
-        return edad;
-    }
+	public LocalDate getFecha() {
+		return fecha;
+	}
 
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
-    public float getEstatura() {
-        return estatura;
-    }
+	public int getEdad() {
+		return edad;
+	}
 
-    public void setEstatura(int estatura) {
-        this.estatura = estatura;
-    }
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
 
-    public float getValor() {
-        return valor;
-    }
+	public float getValor() {
+		return valor;
+	}
 
-    public void setValor(float valor) {
-        this.valor = valor;
-    }
+	public void setValor(float valor) {
+		this.valor = valor;
+	}
 
-    public boolean isEstado() {
-        return estado;
-    }
+	public boolean isEstado() {
+		return estado;
+	}
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 
-    private float getPesoIdeal(){ 
-
-        float estatura = usuario.getEstatura();
-        LocalDate hoy = LocalDate.now();
-        LocalDate nacimiento = usuario.getFechaNacimiento();
-        long edad = ChronoUnit.YEARS.between(nacimiento, hoy);
- 
-        float pesoIdeal= (estatura-100)+(((float)edad/10)) ;
-
-        return pesoIdeal;
-    }
 
 }
