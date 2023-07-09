@@ -16,18 +16,34 @@ public class IngredienteController {
     @Autowired
     IIngredienteService ingredienteService;
 
+    /**
+     * endpoint que permite listar todos los ingredientes activos
+     * @param model
+     * @return página de ingredientes
+     */
     @GetMapping("/listado")
     public String getIngredientesPage(Model model) {
         model.addAttribute("ingredientes", ingredienteService.listarIngredientesActivos());
         return "ingredientes";
     }
 
+    /**
+     * endpoint que devuelve la página del formulario nuevo ingrediente
+     * @param model
+     * @return formulario nuevo ingrediente
+     */
     @GetMapping("/nuevo-ingrediente")
     public String getNuevoIngredientePage(Model model) {
         model.addAttribute("ingredienteForm", ingredienteService.getIngrediente());
         return "nuevo-ingrediente";
     }
 
+    /**
+     * endpoint que permite guardar un ingrediente
+     * @param ingrediente
+     * @param result
+     * @return página de ingredientes
+     */
     @PostMapping("/guardar-ingrediente")
     public ModelAndView guardarIngredientePage(@Valid @ModelAttribute("ingredienteForm") Ingrediente ingrediente, BindingResult result) {
         ModelAndView modelView;
@@ -44,12 +60,24 @@ public class IngredienteController {
         }
     }
 
+    /**
+     * endpoint que devuelve la página del formulario modificar ingrediente
+     * @param model
+     * @param id
+     * @return formulario modificar ingrediente
+     */
     @GetMapping("/editar-ingrediente/{id}")
     public String getEditarIngredientePage(Model model, @PathVariable Long id) {
         model.addAttribute("ingredienteForm", ingredienteService.buscarIngrediente(id));
         return "modificar-ingrediente";
     }
 
+    /**
+     * endpoint que guarda los cambios de un ingrediente
+     * @param ingrediente
+     * @param result
+     * @return página de ingredientes
+     */
     @PostMapping("/modificar-ingrediente")
     public ModelAndView modificarIngredientePage(@Valid @ModelAttribute("ingredienteForm") Ingrediente ingrediente, BindingResult result) {
         ModelAndView modelView;
@@ -66,6 +94,11 @@ public class IngredienteController {
         }
     }
 
+    /**
+     * endpoint que permite eliminar un ingrediente
+     * @param id
+     * @return página de ingredientes
+     */
     @GetMapping("/eliminar-ingrediente/{id}")
     public ModelAndView eliminarIngredientePage(@PathVariable Long id) {
         ModelAndView modelView = new ModelAndView("ingredientes");

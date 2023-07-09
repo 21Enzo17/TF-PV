@@ -31,6 +31,11 @@ public class RecetaController {
     @Autowired
     UploadFile uploadFile;
 
+    /**
+     * endpoint que permite listar todas las recetas activas
+     * @param model
+     * @return
+     */
     @GetMapping("/listado")
     public String getRecetasPage(Model model) {
         model.addAttribute("recetas", recetaService.listarRecetasActivas());
@@ -38,6 +43,11 @@ public class RecetaController {
         return "recetas";
     }
 
+    /**
+     * endpoint que devuelve la página de recetas
+     * @param model
+     * @return página de recetas
+     */
     @GetMapping("/nueva-receta")
     public String getNuevaRecetaPage(Model model) {
         model.addAttribute("recetaForm", recetaService.getReceta());
@@ -46,6 +56,14 @@ public class RecetaController {
         return "nueva-receta";
     }
 
+    /**
+     * endpoint que permite guardar una receta
+     * @param receta
+     * @param result
+     * @param image
+     * @return página de recetas
+     * @throws Exception
+     */
     @PostMapping("/guardar-receta")
     public ModelAndView guardarReceta(@Valid @ModelAttribute("recetaForm") Receta receta, BindingResult result, @RequestParam("file") MultipartFile image) throws Exception {
         ModelAndView modelView;
@@ -66,6 +84,11 @@ public class RecetaController {
         }
     }
 
+    /**
+     * endpoint que permite eliminar una receta por su id
+     * @param id
+     * @return página de recetas
+     */
     @GetMapping("/editar-receta/{id}")
     public String getEditarRecetaPage(Model model, @PathVariable Long id) {
         model.addAttribute("recetaForm", recetaService.buscarReceta(id));
@@ -74,6 +97,14 @@ public class RecetaController {
         return "modificar-receta";
     }
 
+    /**
+     * endpoint que guarda los cambios de una receta
+     * @param receta
+     * @param result
+     * @param image
+     * @return página de recetas
+     * @throws Exception
+     */
     @PostMapping("/modificar-receta")
     public ModelAndView modificarReceta(@Valid @ModelAttribute("recetaForm") Receta receta, BindingResult result, @RequestParam("file") MultipartFile image) throws Exception {
         ModelAndView modelView;
@@ -98,6 +129,11 @@ public class RecetaController {
         }
     }
 
+    /**
+     * endpoint que permite eliminar una receta por su id
+     * @param id
+     * @return página de recetas
+     */
     @GetMapping("/eliminar-receta/{id}")
     public ModelAndView eliminarReceta(@PathVariable Long id) {
         ModelAndView modelView = new ModelAndView("recetas");
@@ -106,6 +142,11 @@ public class RecetaController {
         return modelView;
     }
 
+    /**
+     * endpoint que permite cargar una imagen
+     * @param filename
+     * @return imagen
+     */
     @GetMapping("uploads/{filename}")
     public ResponseEntity<Resource> cargarImagen(@PathVariable String filename){
         Resource resource = null;
