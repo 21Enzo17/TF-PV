@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthy Eats</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<header th:replace="~{layouts/header :: header}"></header>
+
+	<div class="mainpi">
+		<div class="row contenido h-100 ps-4">
+			<div
+				class=" col h-100 d-flex flex-column justify-content-center align-items-center">
+				<div>
+					<h1 class="h1 fs-4 fw-bold text-principal texto-con-borde">
+						Porque verse bien <br>es Sentirse bien!
+					</h1>
+				</div>
+				<p class="fs-4 fw-bold" style="text-align: center;">
+					Acá te ayudamos encontrar tu forma Perfecta <br> Ingresa tu
+					Código de Usuario <br> Y podrás calcular tu <strong
+						class="fs-4 fw-bold">Peso ideal</strong>
+				</p>
+				<div class="form-floating">
+					<form class="row row-cols-lg-auto g-3 align-items-center"
+						th:action="@{/pesoideal/consultarPI}" method="get">
+						<div class="col-12">
+							<label class="visually-hidden" for="inlineFormInputGroupUsername">Nombre
+								de usuario</label>
+							<div class="input-group">
+								<div class="input-group-text">Cod-Usuario</div>
+								<input type="number" class="form-control" name="codigo"
+									id="inlineFormInputGroupUsername" placeholder="Ejm-01334" required>
+							</div>
+						</div>
+						<div class="col-12">
+							<button class="btn btn-principal text-white" type="submit">Enviar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div
+				class="col h-100 d-flex flex-column align-items-center justify-content-center">
+				<div th:if=${info}>
+					<h1 class="h1 fs-4 fw-bold text-principal texto-con-borde">
+						Bien hecho <span></span>
+					</h1>
+				<p class="fs-4 fw-bold" style="text-align: center;">
+					Tu peso Ideal es <br> <strong class="fs-4 fw-bold">72,2
+						kgs.</strong>
+				</p>
+				</div>
+				<div>
+					<h1 class="h1 fs-4 fw-bold text-principal texto-con-borde">
+						Mira Tu resultado acá 
+					</h1>				
+				</div>
+			</div>
+			<div class="information-boxes container-fluid">
+				<div class="row">
+					<div
+						class="box col-12 col-lg-6 bg-secundario p-4 d-flex flex-column align-items-center">
+						<img th:src="@{/images/otros/interrogante.png}" class="mb-2"
+							alt="Icino testimonio" width="38">
+						<h3 class="text-principal fs-5">¿ PARA QUÉ SABER MI PESO IDEAL ?</h3>
+						<p class="text-white" style="text-align:center;">Tu peso
+							ideal es el que te permite tener una buena salud y un buen
+							funcionamiento de tu organismo. Según algunos expertos, el peso
+							ideal se puede calcular usando el índice de masa corporal (IMC),
+							que es una relación entre tu peso y tu altura. El IMC ideal está
+							entre 18,5 y 24,9 kg/m²1. Puedes usar nuestra calculadora de IMC
+							para saber tu valor.</p>
+					</div>
+					<div
+						class="box col-12 col-lg-6 bg-principal p-4 d-flex flex-column align-items-center">
+						<img th:src="@{/images/otros/recipe.png}" class="mb-2"
+							alt="Icono receta" width="38">
+						<h3 class="text-white fs-5">NO LO OLVIDES</h3>
+						<p class="text-white" style="text-align:center;">Mantener tu
+							peso ideal es importante por varias razones, como: Ayuda a que te
+							sientas mejor y con más energía. Reduce el riesgo y la severidad
+							de enfermedades cardíacas, diabetes, hipertensión, artritis y
+							algunos tipos de cáncer23. Mejora tu condición física y tu
+							capacidad para realizar actividades cotidianas3. Favorece tu
+							autoestima y tu bienestar emocional.</p>
+					</div>			
+				</div>
+			</div>
+			<div
+				class="social-links bg-secundario d-flex justify-content-center p-3 gap-3">
+				<a href="#"> <img th:src="@{/images/redes/tik-tok.png}"
+					alt="Logo tiktok" width="24">
+				</a> <a href="#"> <img th:src="@{/images/redes/facebook.png}"
+					alt="Logo facebook" width="24">
+				</a> <a href="#"> <img th:src="@{/images/redes/instagram.png}"
+					alt="Logo instagram" width="24">
+				</a>
+			</div>
+			<footer th:replace="~{layouts/footer :: footer}"></footer>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+				crossorigin="anonymous"></script>
+</body>
+
+</html>
