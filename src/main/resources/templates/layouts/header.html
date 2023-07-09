@@ -20,7 +20,7 @@
                     <ul class="navbar-nav w-100 justify-content-between">
                         <div class="principales d-flex flex-column flex-lg-row fs-5 justify-content-evenly">
                         <li class="nav-item">
-                            <a class="nav-link text-principal" href="#">Inicio</a>
+                            <a class="nav-link text-principal" th:href="@{/index}">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-principal" href="#" role="button"
@@ -37,13 +37,17 @@
                             <a class="nav-link text-principal" href="#">Testimonios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-principal">Recetas</a>
+                            <a class="nav-link text-principal" th:href="@{/recetas/listado}" >Recetas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-principal">Contacto</a>
                         </li>
                         </div>
-                        <div class="gestion fs-5">
+                        <div class="gestion fs-5 d-flex">
+                            <li class="nav-item">
+                                <a class=" nav-link text-principal btn-principal rounded" th:href="@{/nuevo-usuario}" >Registrarme</a>
+                            </li>
+                            <!--<button class="btn btn-principal rounded" ></button>-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-principal" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,12 +56,16 @@
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end">
                                     <li><a class="dropdown-item fw-bold" href="#">Gestion Recetas</a></li>
                                     <li><a class="dropdown-item fw-bold" href="#">...</a></li>
+                                    <li><a class="dropdown-item fw-bold" th:href="@{/recetas/nueva-receta}">Nueva Receta</a></li>
+                                    <li><a class="dropdown-item fw-bold" th:href="@{/ingredientes/nuevo-ingrediente}">Nuevo Ingrediente</a></li>
+                                    <li><a class="dropdown-item fw-bold" th:href="@{/categorias/nueva-categoria}">Nueva Categoria</a></li>
+
                                 </ul>
                             </li>
                         </div>
                     </ul>
                     <!--<div class="buttons">
-                        <button class="btn btn-principal rounded">Registrarme</button>
+                        
                         
                     </div>-->
                 </div>
