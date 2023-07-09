@@ -55,6 +55,7 @@ public class User {
     
     @Column(name="estatura")
     @NotNull(message = "Debe introducir su estatura")
+    @Positive(message = "Debe introducir su estatura")
     private float estatura;
 
     @Column(name="permisos")

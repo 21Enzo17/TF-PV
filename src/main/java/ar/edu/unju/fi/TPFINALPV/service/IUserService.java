@@ -9,5 +9,6 @@ public interface IUserService {
 
     public void addUser(User user);
 
-    public void findUserByName(String nombre);
+    public User findByUser(Long id);
+
 }

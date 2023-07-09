@@ -7,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.TPFINALPV.entity.User;
@@ -14,6 +16,7 @@ import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
@@ -21,6 +24,8 @@ public class UsuarioController {
 
     @Autowired
     private User formUsuario;
+    private User user;
+
 
     @GetMapping("/nuevo-usuario")
     public String getUserForm(Model model){
@@ -32,13 +37,53 @@ public class UsuarioController {
     public ModelAndView nuevoUsuario(@Valid @ModelAttribute("formUsuario")User formUsuario, BindingResult result){
         ModelAndView modelView;
         if(result.hasErrors()){
-            modelView = new ModelAndView("registro");
+            if(formUsuario.getId()==null){
+                modelView = new ModelAndView("registro");
+            }else{
+                modelView = new ModelAndView("modificar-usuario");
+                modelView.addObject("logueado", true);
+            }
+            
         }else{
-            modelView = new ModelAndView("registro");
-            userService.addUser(formUsuario);
-            modelView.addObject("mensaje",formUsuario.getId() );
-            formUsuario.SetUserNull(formUsuario);
+            if(formUsuario.getId()==null){
+                modelView = new ModelAndView("registro");
+                userService.addUser(formUsuario);
+                modelView.addObject("mensaje","Se registro perfectamente su usuario, su id es: "+formUsuario.getId() );
+                formUsuario.SetUserNull(formUsuario);
+            }else{
+                modelView = new ModelAndView("registro");
+                userService.addUser(formUsuario);
+                modelView.addObject("mensaje", "Se modifico perfectamente su usuario, su id es: " +formUsuario.getId() );
+                formUsuario.SetUserNull(formUsuario);
+            }
+            
         }
         return modelView;
     }
+
+    @GetMapping("/editar-usuario")
+    public String modificarUsuario(Model model){
+        model.addAttribute("logueado", false);
+        return "modificar-usuario";
+    }
+
+    @GetMapping("/login")
+    public String getUsuarioLogueado(@RequestParam("id")String id,Model model){
+        if(id.equals(null) || id.equals("")){
+            model.addAttribute("logueado", false);
+            model.addAttribute("error", "Envie datos validos");
+        }else{
+            user = userService.findByUser(Long.parseLong(id));
+            if(user == null){
+                model.addAttribute("logueado", false);
+                model.addAttribute("error", "No se encontro el usuario");
+            }else{
+                model.addAttribute("logueado", true);
+                model.addAttribute("formUsuario",user);
+            }
+        }
+        return "modificar-usuario";
+    }
+   
+
 }

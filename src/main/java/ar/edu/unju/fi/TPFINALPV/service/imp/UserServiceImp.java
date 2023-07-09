@@ -10,25 +10,33 @@ import ar.edu.unju.fi.TPFINALPV.repository.IUserRepository;
 import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 
 @Service
-public class UserService implements IUserService {
+public class UserServiceImp implements IUserService {
     
     @Autowired
     private IUserRepository userRepository;
 
+    /**
+     * Metodo que retorna la lista de usuarios
+     */
     @Override
     public List<User> getAllUsuarios() {
         return (List<User>) userRepository.findAll();
     }
-
+    /**
+     * Metodo que agrega un usuario
+     */
     @Override
     public void addUser(User user) {
         userRepository.save(user);
     }
 
+    /**
+     * Metodo que permite encontrar un usuario por ID
+     */
     @Override
-    public void findUserByName(String nombre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findUserByName'");
+    public User findByUser(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
+
     
 }
