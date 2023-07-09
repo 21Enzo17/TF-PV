@@ -15,17 +15,12 @@
     <header th:replace="~{layouts/header :: header}"></header>
     <div class="information-boxes container-fluid">
         <div class="row">
-            <div class=" mx-auto my-3 col-6 bg-principal p-4 d-flex flex-column align-items-center rounded">
-                
-                <fieldset class="rounded-2 border border-2 border-white w-100">
-					<legend class="text-white" style="float: none; width: fit-content;">
-						Nuevo Usuario
-					</legend>
+            <div class=" mx-auto my-3 col-12 col-lg-6  formulario-general p-4 d-flex flex-column align-items-center rounded" style="max-width: 520px !important; min-width: 320px;">
 					<form class="nueva-sucursal-form p-3 w-100" th:action="@{/guardar-usuario}"
                     th:object="${formUsuario}" method="post">
                         <div class="mx-auto d-block w-100 d-flex flex-column align-items-center">
-                            <i class="bi bi-person-circle text-white fw-bold" style="font-size: 50px;"></i>
-                            <h3 class="text-white fs-5">Registro</h3>
+                            <i class="bi bi-person-circle text-principal fw-bold" style="font-size: 50px;"></i>
+                            <h3 class="text-principal fs-5">Registro</h3>
                         </div>
 						<div class="form-floating mb-3">
 							<input class="form-control"
@@ -89,13 +84,12 @@
                                 <option value="1">Admin</option>
                             </select>
                         </div>
-						<button class="btn btn-secundario" type="submit">Enviar</button>
+						<button class="btn btn-principal" type="submit">Enviar</button>
                         <div th:if="${mensaje}" class="alert alert-success alert-dismissible fade show mt-2" role="alert" >
                             Perfecto! <span th:text="${mensaje}"></span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-					</form>
-				</fieldset>    
+					</form>   
             </div>
                 
             </div>

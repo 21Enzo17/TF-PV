@@ -14,18 +14,17 @@
     <div class="container-recetas p-4">
         <section class="recetas p-4">
             <div class="categoria-div">
-                <!-- <div class="d-flex align-items-center gap-3 mb-3">
-                    <h3 class="m-0">Salud</h3>
-                    <div class="bg-principal w-100" style="height: 4px;"></div>
-                </div> -->
+                <div class="titular mb-4">
+                    <h1>Recetas</h1>
+                </div>
                 <div class="listado-recetas-categoria d-flex flex-column gap-4">
                     <article th:each="receta : ${recetas}" class="receta">
                         <div class="informacion-general">
                             <h4 class="text-principal mb-2" th:text="${receta.nombre}"></h4>
                             <h5 class="text-secundario mb-4 fs-6"><span class="fw-bold">Categoria: </span><span th:text="${receta.categoria.nombre}"></span></h5>
-                            <div class="d-flex gap-5">
+                            <div class="d-flex gap-5 flex-column flex-lg-row">
                                 <img class="img-fluid" th:src="@{/recetas/uploads/}+${receta.imagen}" th:alt="${receta.nombre}">
-                                <div class="informacion d-flex gap-3">
+                                <div class="informacion d-flex flex-column flex-lg-row gap-3">
                                     <p class="descripcion"><span class="fw-bold">Descripción: </span><span th:text="${receta.descripcion}"></span></p>
                                     <div class="ingredientes">
                                         <p class="fw-bold">Ingredientes</p>

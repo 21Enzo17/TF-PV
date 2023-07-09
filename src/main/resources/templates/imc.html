@@ -15,80 +15,81 @@
     <header th:replace="~{layouts/header :: header}"></header>
     <div class="information-boxes container-fluid">
         
-        <div th:if="${logueado}" class="row my-4 col-11 mx-auto rounded-4 overflow-hidden">
-            <div class="box col-12 col-lg-8 bg-principal p-6 d-flex flex-column align-items-center py-3 ">
-                <p class="text-white fs-5">Bienvenido! <span class="text-capitalize" th:text="${user.nombre}"> </span></p>
-                <div class="table-responsive w-100 rounded-4 overflow-hidden">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col" width="10%">Estatura</th>
-                                <th scope="col" width="10%">Peso</th>
-                                <th scope="col" width="10%">IMC</th>
-                                <th scope="col" width="45%">Resultado</th>
-                                <th scope="col" width="25%">Fecha</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="imc : ${listaImc}" class="p-2">
-                                <td class="fs-4" th:text="${imc.usuario.getEstatura()}"></td>
-                                <td class="fs-4" th:text="${imc.peso}"></td>
-                                <td class="fs-4" th:text="${imc.calcularIMC()}"></td>
-                                <td class="fs-4" th:text="${imc.estadoImc()}"></td>
-                                <td class="fs-4" th:text="${imc.fecha}"></td>
-                            </tr>
-                        </tbody>
-                    </table> 
-                </div>
-                <p class="text-white fs-5" th:if="${listaImc.size() == 0}">No tienes Registros todavia</p>  
+        <div  th:if="${logueado}" class="col-11 mx-auto">
+            <div class="titular mt-4">
+                <h1>Calculadora de Indice de Masa Corporal</h1>
             </div>
-            <div class="box col-12 col-lg-4 bg-secundario p-6 d-flex flex-column align-items-center py-3">
-                <img th:src="@{/images/otros/calculator.png}" class="mb-2" alt="Icono calculadora" width="38">
-                <h3 class="text-principal fs-5">Calculadora de IMC</h3>
-                <div class="calculator">
-                    <form th:object="${nuevoImc}" method="post" th:action="@{/imc/nuevo-imc}">
-                        <div class="form-floating mb-3 d-none">
-                            <input name="usuario" type="number" class="form-control" id="floatingInput" placeholder="id" th:value="${user.id}">
-                            <label for="floatingInput">ID</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="Peso" th:classappend="${#fields.hasErrors('peso')} ?'is-invalid':'' "
-                             th:field="*{peso}">
-                            <label for="floatingInput">Peso</label>
-                            <p class="text-danger p-2  my-2 "
-								th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></p>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" readonly placeholder="Altura"  th:value="${user.estatura}">
-                            <label for="floatingInput" >Altura</label>
-                        </div>
-                        <button type="submit" class="btn btn-principal w-100">Calcular</button>
-                    </form>
+            <div class="row my-4  mx-auto rounded-4 overflow-hidden" style="background-color: #e7e7e7;">
+                <div class="box col-12 col-lg-8 p-6 d-flex flex-column align-items-center py-3 ">
+                    <p class="text-principal fs-3">Bienvenido! <span class="text-capitalize" th:text="${user.nombre}"> </span></p>
+                    <div class=" ms-5 table-responsive w-100 rounded-4 overflow-hidden">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="10%">Estatura</th>
+                                    <th scope="col" width="10%">Peso</th>
+                                    <th scope="col" width="10%">IMC</th>
+                                    <th scope="col" width="45%">Resultado</th>
+                                    <th scope="col" width="25%">Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="imc : ${listaImc}" class="p-2">
+                                    <td class="fs-4" th:text="${imc.usuario.getEstatura()}"></td>
+                                    <td class="fs-4" th:text="${imc.peso}"></td>
+                                    <td class="fs-4" th:text="${imc.calcularIMC()}"></td>
+                                    <td class="fs-4" th:text="${imc.estadoImc()}"></td>
+                                    <td class="fs-4" th:text="${imc.fecha}"></td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                    <p class="text-white fs-5" th:if="${listaImc.size() == 0}">No tienes Registros todavia</p>  
+                </div>
+                <div class="box col-12 col-lg-4 p-6 d-flex flex-column align-items-center py-3 mt-4">
+                    <img th:src="@{/images/otros/calculator.png}" class="mb-2" alt="Icono calculadora" width="38">
+                    <h3 class="text-principal fs-5">Calculadora de IMC</h3>
+                    <div class="calculator">
+                        <form th:object="${nuevoImc}" method="post" th:action="@{/imc/nuevo-imc}">
+                            <div class="form-floating mb-3 d-none">
+                                <input name="usuario" type="number" class="form-control" id="floatingInput" placeholder="id" th:value="${user.id}">
+                                <label for="floatingInput">ID</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="floatingInput" placeholder="Peso" th:classappend="${#fields.hasErrors('peso')} ?'is-invalid':'' "
+                                th:field="*{peso}">
+                                <label for="floatingInput">Peso</label>
+                                <p class="text-danger p-2  my-2 "
+                                    th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></p>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="floatingInput" readonly placeholder="Altura"  th:value="${user.estatura}">
+                                <label for="floatingInput" >Altura</label>
+                            </div>
+                            <button type="submit" class="btn btn-principal w-100">Calcular</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div th:unless="${logueado}" class=" bg-principal col-12 col-lg-4 mx-auto rounded p-4 pb-5 my-5 mb-5">
-            <fieldset class="rounded-2 border border-2 border-white w-100 mx-auto">
-					<legend class="text-white" style="float: none; width: fit-content;">
-						Login
-					</legend>
-					<form class="nueva-sucursal-form p-3 mx-auto" th:action="@{/imc/login}" 
-                     method="get">
-                        <div class="mx-auto d-block w-100 d-flex flex-column align-items-center mb-3">
-                            <i class="bi bi-person-circle text-white fw-bold" style="font-size: 50px;"></i>
-                            <h3 class="text-white fs-5">Login</h3>
-                        </div>
-						<div class="form-floating mb-3">
-							<input name="id" class="form-control"
-								type="number" placeholder="Ingrese nombre" value="">
-							<label class="form-label" >ID Usuario</label>
-                            <p class="text-danger p-2  my-2" th:if="*{error}" th:text="*{error}"></p>
-						</div>
-                        <button class="btn btn-secundario" type="submit">Enviar</button>
-					</form>
-				</fieldset>  
-        </div>
-        <div class="box col-12 col-lg-11 bg-principal p-5 d-flex flex-column align-items-center py-3 text-white mx-auto mb-2 rounded">
+            <div th:unless="${logueado}" class="formulario-general mx-auto">
+                        <form class="p-3 mx-auto " th:action="@{/imc/login}" 
+                        method="get">
+                            <div class="mx-auto d-block w-100 d-flex flex-column align-items-center mb-3">
+                                <i class="bi bi-person-circle text-principal fw-bold" style="font-size: 50px;"></i>
+                                <h3 class="text-principal fs-5">Login</h3>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input name="id" class="form-control"
+                                    type="number" placeholder="Ingrese nombre" value="">
+                                <label class="form-label" >ID Usuario</label>
+                                <p class="text-danger p-2  my-2" th:if="*{error}" th:text="*{error}"></p>
+                            </div>
+                            <button class="btn btn-principal" type="submit">Enviar</button>
+                        </form>
+            </div>
+        
+        <div class="box col-12 col-lg-11 bg-principal p-5 d-flex flex-column align-items-center py-3 text-white mx-auto mb-2 rounded-4">
             <p class="fs-5">Una medida de la obesidad se determina mediante el índice de masa corporal (IMC), que se calcula dividiendo los kilogramos de peso por el cuadrado de la estatura en metros (IMC = peso (kg)/ [estatura (m)]2. Según el Instituto Nacional del Corazón, los Pulmones y la Sangre de los Estados Unidos (NHLBI), el sobrepeso se define como un IMC de más de 25. Se considera que una persona es obesa si su IMC es superior a 30. Usted puede determinar su IMC con la calculadora que se encuentra a continuación. Con la cifra del IMC puede averiguar su composición corporal en la tabla que aparece debajo de la calculadora.</p>
         </div>
     </div>
