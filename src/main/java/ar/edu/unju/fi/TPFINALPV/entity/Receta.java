@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Component
@@ -21,15 +20,22 @@ public class Receta {
     private String nombre;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "categoria_id_fk")
+    @NotNull(message = "Debe seleccionar una categoría")
     private Categoria categoria;
     @Column(name = "ingredientes")
-    @ManyToMany(mappedBy = "recetas", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @NotNull(message = "Debe seleccionar al menos un ingrediente")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "RECETA_INGREDIENTE",
+            joinColumns = @JoinColumn(name = "receta_id_fk"),
+            inverseJoinColumns = @JoinColumn(name = "ingrediente_id_fk"))
     private List<Ingrediente> ingredientes;
     @Column(name = "preparacion")
     @NotBlank(message = "La preparación no puede estar vacía")
     private String preparacion;
+    @Column(name = "descripcion")
+    @NotBlank(message = "La descripción no puede estar vacía")
+    private String descripcion;
     @Column(name = "imagen")
-    @NotBlank(message = "Debe seleccionar una imagen")
     private String imagen;
     @Column(name = "estado")
     private boolean estado;
@@ -38,14 +44,15 @@ public class Receta {
         this.estado = true;
     }
 
-    public Receta(Long id, String nombre, Categoria categoria, List<Ingrediente> ingredientes, String preparacion, String imagen) {
+    public Receta(Long id, String nombre, Categoria categoria, List<Ingrediente> ingredientes, String preparacion, String descripcion, String imagen, boolean estado) {
         this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
         this.ingredientes = ingredientes;
         this.preparacion = preparacion;
+        this.descripcion = descripcion;
         this.imagen = imagen;
-        this.estado = true;
+        this.estado = estado;
     }
 
     public Long getId() {
@@ -104,12 +111,21 @@ public class Receta {
         this.estado = estado;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     @Override
     public String toString() {
         return "Receta{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", categoria=" + categoria +
+                ", ingredientes=" + ingredientes +
                 ", preparacion='" + preparacion + '\'' +
                 ", imagen='" + imagen + '\'' +
                 ", estado=" + estado +

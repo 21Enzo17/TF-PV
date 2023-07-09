@@ -15,18 +15,12 @@ public class RecetaServiceImp implements IRecetaService {
     @Autowired
     RecetaRepository recetaRepository;
     @Autowired
-    IngredienteRepository ingredienteRepository;
-    @Autowired
     Receta receta;
 
     @Override
     public void saveReceta(Receta receta) {
-        List<Ingrediente> ingredientes = receta.getIngredientes();
-        for (Ingrediente ingrediente : ingredientes) {
-            ingrediente.getRecetas().add(receta);
-        }
-        ingredienteRepository.saveAll(ingredientes);
-//        recetaRepository.save(receta);
+
+        recetaRepository.save(receta);
     }
 
     @Override
@@ -48,10 +42,10 @@ public class RecetaServiceImp implements IRecetaService {
         return recetaRepository.listarRecetasActivas();
     }
 
-    @Override
-    public List<Receta> listarRecetasConIngredientes() {
-        return recetaRepository.listarRecetasConIngredientes();
-    }
+//    @Override
+//    public List<Receta> listarRecetasConIngredientes() {
+//        return recetaRepository.listarRecetasConIngredientes();
+//    }
 
     @Override
     public Receta getReceta() {

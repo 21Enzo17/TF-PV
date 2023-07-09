@@ -29,6 +29,6 @@ public interface IRecetaService {
      * @return una lista de recetas activas
      */
     public List<Receta> listarRecetasActivas();
-    public List<Receta> listarRecetasConIngredientes();
+//    public List<Receta> listarRecetasConIngredientes();
     public Receta getReceta();
 }

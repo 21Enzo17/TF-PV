@@ -108,7 +108,6 @@ footer {
 }
 
 /* RECETAS */
-
 .receta .informacion-general {
     border-radius: 10px 10px 0 0;
     padding: 15px;
@@ -145,4 +144,22 @@ footer {
     background-color: #e7e7e7;
     padding: 10px;
     border-radius: 10px;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--color-principal);
+    box-shadow: none;
+    
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.nav-link.show {
+    color: #fff !important;
+}
+
+.nav-link:focus {
+    color: #fff;
 }

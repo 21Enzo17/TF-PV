@@ -6,91 +6,39 @@
     <title>Healthy Eats</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
     <header th:replace="~{layouts/header :: header}"></header>
     <div class="container-recetas p-4">
         <section class="recetas p-4">
-            <div class="categoria">
-                <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="categoria-div">
+                <!-- <div class="d-flex align-items-center gap-3 mb-3">
                     <h3 class="m-0">Salud</h3>
                     <div class="bg-principal w-100" style="height: 4px;"></div>
-                </div>
+                </div> -->
                 <div class="listado-recetas-categoria d-flex flex-column gap-4">
-                    <article class="receta">
-                        <div class="informacion-general">
-                            <h4 class="text-principal mb-4">Plato</h4>
-                            <div class="d-flex gap-5">
-                                <img class="img-fluid" th:src="@{/images/footer/plato.jpg}" alt="">
-                                <div class="informacion d-flex gap-3">
-                                    <p class="descripcion">
-                                        La milanesa con puré es un plato clásico de la cocina que consiste en una fina rebanada de carne empanada, generalmente de ternera, que se fríe hasta que queda crujiente y dorada. Se sirve acompañada de puré de papas, una preparación suave y cremosa de papas cocidas y machacadas. La combinación de la milanesa crujiente con el puré suave crea una mezcla deliciosa de sabores y texturas. Es un plato popular en muchos países y una opción reconfortante para una comida casera.
-                                    </p>
-                                    <div class="ingredientes">
-                                        <p class="fw-bold">Ingredientes</p>
-                                        <ul>
-                                            <li>Milanesa</li>
-                                            <li>Papas</li>
-                                            <li>Leche</li>
-                                            <li>Ajo</li>
-                                            <li>Nuez Moscada</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion w-100" id="accordionExample">
-                            <div class="accordion-item">
-                              <h2 class="accordion-header">
-                                <button class="accordion-button collapsed bg-principal text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseThree">
-                                  ¿Como lo preparo?
-                                </button>
-                              </h2>
-                              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                  <p>
-                                        Milanesa:
-    
-                                        Toma una fina rebanada de carne, como ternera o pollo.
-                                        Sazona la carne con sal y pimienta al gusto.
-                                        Pasa la carne por harina, luego por huevo batido y finalmente por pan rallado, asegurándote de que quede bien cubierta.
-                                        Calienta aceite en una sartén a fuego medio-alto.
-                                        Coloca la milanesa empanada en el aceite caliente y fríela por ambos lados hasta que esté dorada y crujiente.
-                                        Retira la milanesa de la sartén y colócala sobre papel absorbente para eliminar el exceso de aceite.
-                                        Puré de papas:
-    
-                                        Hierve papas peladas y cortadas en agua con sal hasta que estén tiernas.
-                                        Escurre las papas y vuelve a colocarlas en la olla.
-                                        Machaca las papas con un tenedor o utiliza un prensapuré para hacer un puré suave.
-                                        Agrega mantequilla y leche caliente al puré de papas y mezcla bien hasta obtener una consistencia cremosa.
-                                        Sazona con sal y pimienta al gusto.
-                                        Servir:
-    
-                                        Coloca la milanesa en un plato y acompáñala con una porción de puré de papas.
-                                        Puedes agregar una rodaja de limón o servir con salsa de tomate si lo deseas.
-                                        ¡Y ya está! Ahora puedes disfrutar de tu deliciosa milanesa con puré.
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </article>
                     <article th:each="receta : ${recetas}" class="receta">
                         <div class="informacion-general">
-                            <h4 class="text-principal mb-4" th:text="${receta.nombre}"></h4>
+                            <h4 class="text-principal mb-2" th:text="${receta.nombre}"></h4>
+                            <h5 class="text-secundario mb-4 fs-6"><span class="fw-bold">Categoria: </span><span th:text="${receta.categoria.nombre}"></span></h5>
                             <div class="d-flex gap-5">
-                                <img class="img-fluid" th:src="@{/images/footer/plato.jpg}" alt="">
+                                <img class="img-fluid" th:src="@{/recetas/uploads/}+${receta.imagen}" th:alt="${receta.nombre}">
                                 <div class="informacion d-flex gap-3">
-                                    <p class="descripcion">
-                                        La milanesa con puré es un plato clásico de la cocina que consiste en una fina rebanada de carne empanada, generalmente de ternera, que se fríe hasta que queda crujiente y dorada. Se sirve acompañada de puré de papas, una preparación suave y cremosa de papas cocidas y machacadas. La combinación de la milanesa crujiente con el puré suave crea una mezcla deliciosa de sabores y texturas. Es un plato popular en muchos países y una opción reconfortante para una comida casera.
-                                    </p>
+                                    <p class="descripcion"><span class="fw-bold">Descripción: </span><span th:text="${receta.descripcion}"></span></p>
                                     <div class="ingredientes">
                                         <p class="fw-bold">Ingredientes</p>
                                         <ul>
-                                            <li th:each="ingrediente : ${receta.ingredientes}" tx:text="ingrediente.nombre"></li>
+                                            <li class="text-capitalize" th:each="ingrediente : ${receta.ingredientes}" th:text="${ingrediente.nombre}"></li>
                                         </ul>
                                     </div>
+                                </div>
+                                <div class="receta__acciones d-flex flex-column gap-2">
+                                    <a th:href="@{/recetas/editar-receta/}+${receta.id}"
+                                        class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                    <a th:href="@{/recetas/eliminar-receta/}+${receta.id}"
+                                        class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +51,7 @@
                               </h2>
                               <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                  <p th:text="receta.preparacion"></p>
+                                  <p th:text="${receta.preparacion}"></p>
                                 </div>
                               </div>
                             </div>

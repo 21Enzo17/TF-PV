@@ -47,14 +47,14 @@ public class CategoriaController {
     @GetMapping("/editar-categoria/{id}")
     public String getEditarCategoriaPage(Model model, @PathVariable Long id) {
         model.addAttribute("categoriaForm", categoriaService.buscarCategoria(id));
-        return "editar-categoria";
+        return "modificar-categoria";
     }
 
     @PostMapping("/modificar-categoria")
     public ModelAndView modificarCategoria(@Valid @ModelAttribute("categoriaForm") Categoria categoria, BindingResult result) {
         ModelAndView modelView;
         if (result.hasErrors()) {
-            modelView = new ModelAndView("editar-categoria");
+            modelView = new ModelAndView("modificar-categoria");
             modelView.addObject("categoriaForm", categoriaService.getCategoria());
             return modelView;
         }
@@ -66,7 +66,7 @@ public class CategoriaController {
         }
     }
 
-    @PostMapping("/eliminar-categoria/{id}")
+    @GetMapping("/eliminar-categoria/{id}")
     public ModelAndView eliminarCategoria(@PathVariable Long id) {
         ModelAndView modelView = new ModelAndView("categorias");
         categoriaService.eliminarCategoria(id);
