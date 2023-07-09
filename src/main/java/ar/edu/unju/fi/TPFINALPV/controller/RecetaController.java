@@ -30,8 +30,6 @@ public class RecetaController {
     ICategoriaService categoriaService;
     @Autowired
     UploadFile uploadFile;
-    @Autowired
-    Receta receta;
 
     @GetMapping("/listado")
     public String getRecetasPage(Model model) {
@@ -42,7 +40,7 @@ public class RecetaController {
 
     @GetMapping("/nueva-receta")
     public String getNuevaRecetaPage(Model model) {
-        model.addAttribute("recetaForm", receta);
+        model.addAttribute("recetaForm", recetaService.getReceta());
         model.addAttribute("ingredientes", ingredienteService.listarIngredientesActivos());
         model.addAttribute("categorias", categoriaService.listarCategoriasActivas());
         return "nueva-receta";
@@ -79,7 +77,6 @@ public class RecetaController {
     @PostMapping("/modificar-receta")
     public ModelAndView modificarReceta(@Valid @ModelAttribute("recetaForm") Receta receta, BindingResult result, @RequestParam("file") MultipartFile image) throws Exception {
         ModelAndView modelView;
-        System.out.println(receta);
         if (result.hasErrors()) {
             modelView = new ModelAndView("modificar-receta");
             modelView.addObject("recetaForm", receta);
@@ -89,7 +86,6 @@ public class RecetaController {
         }
         else {
             receta.setImagen(recetaService.buscarReceta(receta.getId()).getImagen());
-            System.out.println(receta.getImagen());
             modelView = new ModelAndView("recetas");
             if(!image.isEmpty()){
                 uploadFile.delete(receta.getImagen());

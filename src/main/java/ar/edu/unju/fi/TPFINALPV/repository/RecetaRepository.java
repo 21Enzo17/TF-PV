@@ -11,6 +11,4 @@ import java.util.List;
 public interface RecetaRepository extends CrudRepository<Receta, Long> {
     @Query(value = "SELECT r FROM Receta r WHERE r.estado = true")
     public List<Receta> listarRecetasActivas();
-//    @Query(value = "SELECT r FROM Receta r JOIN r.ingredientes i WHERE r.estado = true")
-//    public List<Receta> listarRecetasConIngredientes();
 }

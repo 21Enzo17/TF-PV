@@ -15,16 +15,29 @@ public class CategoriaServiceImp implements ICategoriaService {
     @Autowired
     Categoria categoria;
 
+    /**
+     * Metodo que permite guardar una categoria
+     * @param categoria
+     */
     @Override
     public void saveCategoria(Categoria categoria) {
         categoriaRepository.save(categoria);
     }
 
+    /**
+     * Metodo que permite buscar una categoria por su id
+     * @param id
+     * @return categoria que coincida con el id
+     */
     @Override
     public Categoria buscarCategoria(Long id) {
         return categoriaRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Metodo que permite eliminar una categoria, colocando su estado en false
+     * @param id
+     */
     @Override
     public void eliminarCategoria(Long id) {
         Categoria encontrado = categoriaRepository.findById(id).orElse(null);
@@ -34,11 +47,19 @@ public class CategoriaServiceImp implements ICategoriaService {
         }
     }
 
+    /**
+     * Metodo que permite listar las categorias activas (estado = true)
+     * @return lista de categorias activas
+     */
     @Override
     public List<Categoria> listarCategoriasActivas() {
         return categoriaRepository.listarCategoriasActivas();
     }
 
+    /**
+     * Metodo que permite obtener una categoria
+     * @return categoria
+     */
     @Override
     public Categoria getCategoria() {
         return categoria;

@@ -1,8 +1,6 @@
 package ar.edu.unju.fi.TPFINALPV.service.imp;
 
-import ar.edu.unju.fi.TPFINALPV.entity.Ingrediente;
 import ar.edu.unju.fi.TPFINALPV.entity.Receta;
-import ar.edu.unju.fi.TPFINALPV.repository.IngredienteRepository;
 import ar.edu.unju.fi.TPFINALPV.repository.RecetaRepository;
 import ar.edu.unju.fi.TPFINALPV.service.IRecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +15,30 @@ public class RecetaServiceImp implements IRecetaService {
     @Autowired
     Receta receta;
 
+    /**
+     * Metodo que permite guardar una receta
+     * @param receta
+     */
     @Override
     public void saveReceta(Receta receta) {
 
         recetaRepository.save(receta);
     }
 
+    /**
+     * Metodo que permite buscar una receta por su id
+     * @param id
+     * @return receta que coincida con el id
+     */
     @Override
     public Receta buscarReceta(Long id) {
         return recetaRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Metodo que permite eliminar una receta, colocando su estado en false
+     * @param id
+     */
     @Override
     public void eliminarReceta(Long id) {
         Receta encontrado = recetaRepository.findById(id).orElse(null);
@@ -37,16 +48,19 @@ public class RecetaServiceImp implements IRecetaService {
         }
     }
 
+    /**
+     * Metodo que permite listar las recetas activas (estado = true)
+     * @return lista de recetas activas
+     */
     @Override
     public List<Receta> listarRecetasActivas() {
         return recetaRepository.listarRecetasActivas();
     }
 
-//    @Override
-//    public List<Receta> listarRecetasConIngredientes() {
-//        return recetaRepository.listarRecetasConIngredientes();
-//    }
-
+    /**
+     * Metodo que permite obtener una receta
+     * @return receta
+     */
     @Override
     public Receta getReceta() {
         return receta;
