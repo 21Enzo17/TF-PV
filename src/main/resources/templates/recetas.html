@@ -33,7 +33,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="receta__acciones d-flex flex-column gap-2">
+                                <div class="receta__acciones d-flex flex-column gap-2" th:if="${sesion.permisos}">
                                     <a th:href="@{/recetas/editar-receta/}+${receta.id}"
                                         class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                                     <a th:href="@{/recetas/eliminar-receta/}+${receta.id}"
