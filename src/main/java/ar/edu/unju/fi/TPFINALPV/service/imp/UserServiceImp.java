@@ -14,6 +14,8 @@ public class UserServiceImp implements IUserService {
     
     @Autowired
     private IUserRepository userRepository;
+    @Autowired
+    User session;
 
     /**
      * Metodo que retorna la lista de usuarios
@@ -38,5 +40,13 @@ public class UserServiceImp implements IUserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    
+    @Override
+    public User getSesion(){
+        return session;
+    }
+
+    @Override
+    public void setSesion(User user){
+        this.session = user;
+    }
 }

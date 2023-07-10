@@ -44,12 +44,5 @@ public class ContactoSeviceImp implements IContactoService {
 		List <Contacto> lista = contactoRepository.findByEstado(true); 
 		return lista;
 	}
-
-	@Override
-	public void crearContacto(Contacto contacto) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }

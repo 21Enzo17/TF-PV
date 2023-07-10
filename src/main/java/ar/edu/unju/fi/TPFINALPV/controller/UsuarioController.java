@@ -84,6 +84,31 @@ public class UsuarioController {
         }
         return "modificar-usuario";
     }
-   
 
+    @GetMapping("/sign-in")
+    public String getUsuarioSingIn(){
+        return "login";
+    }
+
+    @GetMapping("/auth")
+    public ModelAndView authUser(@RequestParam Long iduser){
+        ModelAndView modelview;
+        User user = userService.findByUser(iduser);
+        if (user != null){
+            userService.setSesion(user);
+            modelview = new ModelAndView("index");
+            modelview.addObject("sesion", user);
+        } else {
+            modelview = new ModelAndView("login");
+            modelview.addObject("error", "No se encontro el usuario");
+        }
+        return modelview;
+    }
+
+    @GetMapping("/logout")
+    public ModelAndView logoutUser(){
+        ModelAndView modelview = new ModelAndView("index");
+        userService.setSesion(null);
+        return modelview;
+    }
 }
