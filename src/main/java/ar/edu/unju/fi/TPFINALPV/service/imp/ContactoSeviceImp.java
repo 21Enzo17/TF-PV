@@ -45,11 +45,4 @@ public class ContactoSeviceImp implements IContactoService {
 		return lista;
 	}
 
-	@Override
-	public void crearContacto(Contacto contacto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }

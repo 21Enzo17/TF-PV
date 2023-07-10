@@ -3,6 +3,7 @@ package ar.edu.unju.fi.TPFINALPV.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -252,4 +253,22 @@ public class User {
         this.indiceMasaCorporal = null;
         this.permisos = false;
     }
+    
+    public float getPesoIdeal() {
+    	
+    	Period periodo = Period.between(fecha, LocalDate.now());
+		int edad=periodo.getYears();			
+		float pi=(estatura-100.0f)+(((float)edad/10.0f)*0.9f);			
+		return pi;
+    	
+    }
+    
+    public int getEdad() {
+    	
+    	Period periodo = Period.between(fecha, LocalDate.now());
+		int edad=periodo.getYears();
+		return edad;
+    	
+    }
+    
 }
