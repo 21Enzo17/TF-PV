@@ -4,6 +4,7 @@ import ar.edu.unju.fi.TPFINALPV.entity.Receta;
 import ar.edu.unju.fi.TPFINALPV.service.ICategoriaService;
 import ar.edu.unju.fi.TPFINALPV.service.IIngredienteService;
 import ar.edu.unju.fi.TPFINALPV.service.IRecetaService;
+import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import ar.edu.unju.fi.TPFINALPV.util.UploadFile;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class RecetaController {
     ICategoriaService categoriaService;
     @Autowired
     UploadFile uploadFile;
+    @Autowired
+    IUserService userService;
 
     /**
      * endpoint que permite listar todas las recetas activas
@@ -39,7 +42,7 @@ public class RecetaController {
     @GetMapping("/listado")
     public String getRecetasPage(Model model) {
         model.addAttribute("recetas", recetaService.listarRecetasActivas());
-        System.out.println(recetaService.listarRecetasActivas());
+        model.addAttribute("sesion", userService.getSesion());
         return "recetas";
     }
 
