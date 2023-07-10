@@ -18,6 +18,7 @@
                 <div class="titular mb-4">
                     <h1>Recetas</h1>
                 </div>
+                <p class="fs-3" th:if="${recetas.size() == 0}">No hay recetas que mostrar</p>
                 <div class="listado-recetas-categoria d-flex flex-column gap-4">
                     <article th:each="receta : ${recetas}" class="receta">
                         <div class="informacion-general">
@@ -34,10 +35,10 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="receta__acciones d-flex flex-column gap-2" th:if="${sesion.permisos}">
-                                    <a th:href="@{/recetas/editar-receta/}+${receta.id}"
+                                <div class="receta__acciones d-flex flex-column gap-2" th:if="${sesion}">
+                                    <a th:if="${sesion.permisos}" th:href="@{/recetas/editar-receta/}+${receta.id}"
                                         class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
-                                    <a th:href="@{/recetas/eliminar-receta/}+${receta.id}"
+                                    <a th:if="${sesion.permisos}" th:href="@{/recetas/eliminar-receta/}+${receta.id}"
                                         class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                 </div>
                             </div>
