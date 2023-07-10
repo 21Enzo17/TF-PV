@@ -16,12 +16,17 @@
     <div class="container-fluid p-4">
         <div class="administracion">
             <h1 class="titular mb-4">Administración</h1>
+            <h2>Recetas</h2>
             <a th:href="@{/recetas/listado}" class="btn btn-principal">Ver recetas</a>
             <a th:href="@{/recetas/nueva-receta}" class="btn btn-principal">Crear receta</a>
             <a th:href="@{/ingredientes/listado}" class="btn btn-principal">Ver ingredientes</a>
             <a th:href="@{/ingredientes/nuevo-ingrediente}" class="btn btn-principal">Crear ingrediente</a>
             <a th:href="@{/categorias/listado}" class="btn btn-principal">Ver categorias</a>
             <a th:href="@{/categorias/nueva-categoria}" class="btn btn-principal">Crear categoria</a>
+            <h2>Servicios</h2>
+            <a th:href="@{/pesoideal/consultaspi}" class="btn btn-principal">Ver las consultas realizadas</a>
+            <h2>Mensajes</h2>
+            <a th:href="@{/contactos/mensajes}" class="btn btn-principal">Ver los mensajes</a>
         </div>
     </div>
     <footer th:replace="~{layouts/footer :: footer}"></footer>

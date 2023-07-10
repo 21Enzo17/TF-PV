@@ -18,51 +18,53 @@ import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 @RequestMapping("/pesoideal")
 public class PesoIdealController {
 
-	
-	@Autowired
-	private IUserService userService;
-	@Autowired
-	private IPesoIdealService pesoService;
-	
-	@GetMapping()
-	public String GetPesoIdealPage() {
-		return "pesoideal";
-	}
 
-	@GetMapping("/consultarPI")
-	public ModelAndView getEliminarPage(Model model, @RequestParam Long codigo) {		
-		User user=new User();
-		user=userService.findByUser(codigo);
-		ModelAndView modelView;
-		modelView=new ModelAndView("pesoideal");
-		if(user!=null) {
-			modelView.addObject("usuario",user);
-			modelView.addObject("pesoIdeal",user.getPesoIdeal());
-			modelView.addObject("edad",user.getEdad());
-			modelView.addObject("encontrado",true);		
-			PesoIdeal registro=new  PesoIdeal(user.getNombre(),user.getEdad(),user.getEstatura(),user.getPesoIdeal());
-			pesoService.guardar(registro);					
-		}else {									
-			modelView.addObject("error",true);				
-			modelView.addObject("encontrado",false);			
-		}	
-		return modelView;
-	}
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private IPesoIdealService pesoService;
 
-	@GetMapping("/consultaspi")
-	public String getConsultasPage(Model model) {
-		model.addAttribute("listaPI",pesoService.getListaPI());
-		return "consultaspi";
-	}
+    @GetMapping()
+    public String GetPesoIdealPage(Model model) {
+        model.addAttribute("sesion",userService.getSesion());
+        return "pesoideal";
+    }
 
-	 @GetMapping("/eliminarRegistro/{id}")
-	    public String getListaConsultas(Model model, @PathVariable(value = "id") Long id) {
-	        pesoService.eliminar(id);
-	        model.addAttribute("listaPI", pesoService.getListaPI());
-	        if (pesoService.getListaPI().size() == 0) {
-	            model.addAttribute("Alerta", true);
-	        }
-	        return "consultaspi";
-	    }
+    @GetMapping("/consultarPI")
+    public ModelAndView getEliminarPage(Model model, @RequestParam Long codigo) {
+        User user=userService.findByUser(codigo);
+        ModelAndView modelView;
+        modelView=new ModelAndView("pesoideal");
+        if(user!=null) {
+            modelView.addObject("pesoIdeal",user.getPesoIdeal());
+            modelView.addObject("edad",user.getEdad());
+            modelView.addObject("encontrado",true);
+            PesoIdeal registro=new  PesoIdeal(user.getNombre(),user.getEdad(),user.getEstatura(),user.getPesoIdeal());
+            pesoService.guardar(registro);
+        }else {
+            modelView.addObject("error",true);
+            modelView.addObject("encontrado",false);
+        }
+        modelView.addObject("sesion",user);
+        return modelView;
+    }
+
+    @GetMapping("/consultaspi")
+    public String getConsultasPage(Model model) {
+        model.addAttribute("listaPI",pesoService.getListaPI());
+        model.addAttribute("sesion",userService.getSesion());
+        return "consultaspi";
+    }
+
+    @GetMapping("/eliminarRegistro/{id}")
+    public String getListaConsultas(Model model, @PathVariable(value = "id") Long id) {
+        pesoService.eliminar(id);
+        model.addAttribute("listaPI", pesoService.getListaPI());
+        if (pesoService.getListaPI().size() == 0) {
+            model.addAttribute("Alerta", true);
+        }
+        model.addAttribute("sesion",userService.getSesion());
+        return "consultaspi";
+    }
 
 }
