@@ -14,52 +14,31 @@
 
 <body>
 	<header th:replace="~{layouts/header :: header}"></header>
-	<div class="information-boxes container-fluid">
-		<div class="col-11 mx-auto my-4">
-			<div class="titular my-4">
-				<h1>Testimonios</h1>
+	<div class="container-xxl my-4">
+		<div class ="row gap-4 justify-content-evenly">
+			<form class="d-flex mt-2" role="search" th:action="@{/testimonios/buscar-testimonio}"  method="get">
+				<input name="nombre" id="nombre" class="form-control me-2" type="search"  placeholder="Buscar Testimonio por Nombre de Autor" aria-label="Search">
+				<button class="btn btn-outline-success"  type="submit">Buscar</button>
+			</form>
+			<div th:if="${alerta}" class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+				<p><strong>No hubo coincidencias. </strong>Prueba con otras palabras.</p>
 			</div>
-			<div class="row gap-4 justify-content-evenly">
-				<form class="d-flex mt-2" role="search" th:action="@{/testimonios/buscar-testimonio}" method="get">
-					<input name="nombre" id="nombre" class="form-control me-2 h-100" required type="search"
-						placeholder="Buscar Testimonio por Nombre de Autor" aria-label="Search">
-					<button class="btn btn-principal" type="submit">Buscar</button>
-				</form>
-				<div th:if="${alerta}" class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
-					<p><strong>No hubo coincidencias. </strong>Prueba con otras palabras.</p>
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-				<div>
-					<article th:each="testimonio:${listaTestimonio}"
-						class="lista-testimonios col-12 p-4 my-3 mb-4 px-4">
-						<h3 class="fw-bold" th:text="${testimonio.titulo}"></h3>
-						<p class="text-break" style="text-align: justify;" th:text="${testimonio.getAutor().getNombre}">
-						</p>
-						<p class="text-break" style="text-align: justify;" th:text="${testimonio.fecha}"></p>
-						<p class="text-break" style="text-align: justify;" th:text="${testimonio.descripcion}"><br>
-						<div class="botones">
-							<button class="px-0 py-1 btn btn-success"><a style="font-size:20px" class="text-white"
-									th:href="@{/testimonios/editar-testimonios/}+${testimonio.id}"><i
-										class="px-2 py-1 bi bi-pencil-square"></i></a></button>
-							<button class="px-0 py-1 btn btn-danger"><a style="font-size:20px" class="text-white"
-									th:href="@{/testimonios/eliminar-testimonios/}+${testimonio.id}"><i
-										class="px-2 py-1 bi bi-x-circle"></i></a></button>
-						</div>
-					</article>
-				</div>
+			<div th:if="${error}" class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+				<p>Se debe ingresar un nombre de autor para realizar la busqueda de testimonios</p>
 			</div>
-		</div>
-	</div>
-	<div class="social-links bg-secundario d-flex justify-content-center p-3 gap-3">
-		<a href="#">
-			<img th:src="@{/images/redes/tik-tok.png}" alt="Logo tiktok" width="24">
-		</a>
-		<a href="#">
-			<img th:src="@{/images/redes/facebook.png}" alt="Logo facebook" width="24">
-		</a>
-		<a href="#">
-			<img th:src="@{/images/redes/instagram.png}" alt="Logo instagram" width="24">
-		</a>
+			<div>
+				<article th:each="testimonio:${listaTestimonio}" class="lista-testimonios col-12 p-4 my-3 mb-4 px-4">
+					<h3 class="fw-bold" th:text="${testimonio.titulo}" ></h3>
+					<p class="text-break" style="text-align: justify;" th:text="${testimonio.getAutor().getNombre}"></p>
+					<p class="text-break" style="text-align: justify;" th:text="${testimonio.fecha}"></p>
+					<p class="text-break" style="text-align: justify;" th:text="${testimonio.descripcion}"><br>
+					<div class="botones">
+						<button class="px-0 py-1 btn btn-success"><a style="font-size:20px" class="text-white" th:href="@{/testimonios/editar-testimonios/}+${testimonio.id}"><i class="px-2 py-1 bi bi-pencil-square"></i></a></button>
+						<button class="px-0 py-1 btn btn-danger"><a style="font-size:20px" class="text-white" th:href="@{/testimonios/eliminar-testimonios/}+${testimonio.id}"><i class="px-2 py-1 bi bi-x-circle"></i></a></button>
+					</div>
+				</article>
+			</div>
+		</div>	
 	</div>
 	<footer th:replace="~{layouts/footer :: footer}"></footer>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
