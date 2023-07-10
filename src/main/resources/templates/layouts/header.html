@@ -34,7 +34,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-principal" href="#">Testimonios</a>
+                            <a class="nav-link text-principal" th:href="@{/testimonios/listado}">Testimonios</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-principal">Recetas</a>
@@ -50,8 +50,8 @@
                                     Gestion
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end">
-                                    <li><a class="dropdown-item fw-bold" href="#">Gestion Recetas</a></li>
-                                    <li><a class="dropdown-item fw-bold" href="#">...</a></li>
+                                    <li><a class="dropdown-item fw-bold" th:href="@{/autor/listado}">Gestion Autores</a></li>
+                                    <li><a class="dropdown-item fw-bold" th:href="@{/testimonios/listado}">Gestion Testimonios</a></li>
                                 </ul>
                             </li>
                         </div>
