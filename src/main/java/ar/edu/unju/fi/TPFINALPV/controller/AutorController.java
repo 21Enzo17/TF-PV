@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.TPFINALPV.controller;
 
+import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,9 @@ public class AutorController {
 
 	@Autowired
 	private Autor autor;
+
+	@Autowired
+	private IUserService userService;
 	
 	 /**
      * Método que muestra la página de Autores
@@ -33,6 +37,7 @@ public class AutorController {
 	@GetMapping("/listado")
 	public String listaCategorias(Model model) {
 		model.addAttribute("autores", autorService.getDisponibles());
+		model.addAttribute("sesion", userService.getSesion());
 		return "autor";
 	}
 	
@@ -46,6 +51,7 @@ public class AutorController {
 		autor.setEstado(true);
 		model.addAttribute("nuevo", autor);
 		model.addAttribute("autores", autorService.getDisponibles());
+		model.addAttribute("sesion", userService.getSesion());
 		return "nuevo-autor";
 	}
 	
@@ -66,6 +72,7 @@ public class AutorController {
 			modelView.addObject("autores", autorService.getDisponibles());
 			autor.toString();
 		}
+		modelView.addObject("sesion", userService.getSesion());
 		return modelView;
 	}
 	
@@ -79,6 +86,7 @@ public class AutorController {
     public String eliminarAutor(@PathVariable(value="id")Long id,Model model){
         autorService.eliminarAutor(autorService.findAutorById(id));
         model.addAttribute("autores", autorService.getDisponibles());
+		model.addAttribute("sesion", userService.getSesion());
         return "autor";
     }
     
@@ -91,6 +99,7 @@ public class AutorController {
     @GetMapping("/editar-autor/{id}")
     public String editarAutor(@PathVariable(value="id")Long id, Model model){
         model.addAttribute("encontrado", autorService.findAutorById(id));
+		model.addAttribute("sesion", userService.getSesion());
         return "modificar-autor";
     }
     
@@ -111,6 +120,7 @@ public class AutorController {
             modelView.addObject("autores",autorService.getDisponibles());
             
         }
+		modelView.addObject("sesion", userService.getSesion());
         return modelView;
     }
 

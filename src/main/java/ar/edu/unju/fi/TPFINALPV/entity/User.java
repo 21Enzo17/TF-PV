@@ -2,7 +2,6 @@ package ar.edu.unju.fi.TPFINALPV.entity;
 
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Period;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import java.util.Objects;
 
 @Component
 @Entity

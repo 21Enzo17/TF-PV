@@ -186,7 +186,7 @@ fieldset ul {
 
         
 input:not(.exception){
-	width: 350px;
+	/* width: 350px; */
 	height: 30px;
 	margin-bottom: 10px;
 	font-family: 'Poppins', sans-serif;
