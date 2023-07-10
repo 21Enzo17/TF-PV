@@ -60,6 +60,7 @@ public class ContactoController {
             formContactos.setContactoNull(formContactos);
             modelView.addObject("alerta", true);
         }
+        modelView.addObject("sesion", userService.getSesion());
         return modelView;
     }
 
@@ -73,6 +74,7 @@ public class ContactoController {
     @GetMapping("/eliminar/{id}")
     public String getListaActualizada(Model model, @PathVariable(value = "id") Long id) {
         contactoService.eliminarContacto(id);
+        model.addAttribute("sesion", userService.getSesion());
         model.addAttribute("contactoGuardar", contactoService.getListaDeContactos());
         if (contactoService.getListaDeContactos().size() == 0) {
             model.addAttribute("MensajeAlertaVacio", true);
@@ -89,6 +91,7 @@ public class ContactoController {
     @GetMapping("/mensajes")
     public String getListaMensajes(Model model) {
         model.addAttribute("contactoGuardar", contactoService.getListaDeContactos());
+        model.addAttribute("sesion", userService.getSesion());
         if (contactoService.getListaDeContactos().size() == 0) {
             model.addAttribute("MensajeAlertaVacio", true);
         }
