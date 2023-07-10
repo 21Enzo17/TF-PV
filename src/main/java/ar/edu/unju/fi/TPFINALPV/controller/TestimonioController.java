@@ -173,8 +173,12 @@ public class TestimonioController {
     		  coincidenteList.add(testimonio); 		  
     	  }
       }
-      modelView.addObject("listaAutores", autorService.getDisponibles());
-      modelView.addObject("listaTestimonio", coincidenteList);
+      if(buscado.equals(""))
+    	  modelView.addObject("error", true);
+      else {
+          modelView.addObject("listaAutores", autorService.getDisponibles());
+          modelView.addObject("listaTestimonio", coincidenteList);
+      }
       if(coincidenteList.size()==0)
     	  modelView.addObject("alerta", true);
 	  return modelView;
