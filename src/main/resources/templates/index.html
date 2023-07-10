@@ -7,6 +7,7 @@
     <title>Healthy Eats</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="shortcut icon" th:href="@{/images/logo/LOGO.png}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
@@ -17,15 +18,15 @@
             <h1 class="h1 fs-1 text-principal">Healthy Eats</h1>
             <p>En esta página encontrarás consejos, planes, <br> recetas y mucho más para que tu dieta sea <br> la más eficiente.</p>
             <div class="buttons">
-                <button class="btn btn-principal">VER MÁS</button>
-                <button class="btn btn-secundario">VER OPINIONES</button>
+                <button class="btn btn-principal" ><a class="nav-link" th:href="@{/recetas/listado}">VER MÁS</a></button>
+                <button class="btn btn-secundario"><a class="nav-link" th:href="@{/testimonios/listado}">VER OPINIONES</a></button>
             </div>
         </div>
     </main>
     <div class="information-boxes container-fluid">
         <div class="row">
             <div class="box col-12 col-lg-4 bg-secundario p-4 d-flex flex-column align-items-center">
-                <img th:src="@{/images/otros/testimonial.png}" class="mb-2" alt="Icino testimonio" width="38">
+                <img th:src="@{/images/otros/testimonial.png}" class="mb-2" alt="Icono testimonio" width="38">
                 <h3 class="text-principal fs-5">Ultimo Testimonio</h3>
                 <h4 class="text-white p-2 fs-6">Ruperto Losa</h4>
                 <p class="text-center text-white">"Quiero compartir mi experiencia con el servicio de nutrición que recibí. Desde que comencé mi programa personalizado, he experimentado cambios significativos en mi salud y bienestar. Mi nutricionista fue muy profesional y se tomó el tiempo para entender mis necesidades y metas. Me brindó orientación sobre mis hábitos alimenticios y diseñó un plan equilibrado y realista. Gracias a su apoyo y seguimiento constante, he logrado perder peso de manera saludable y mantenerlo. Me siento más enérgico, mi digestión ha mejorado y mi autoestima ha aumentado. Recomiendo encarecidamente este servicio de nutrición para transformar tu vida."</p>
@@ -39,17 +40,18 @@
             <div class="box col-12 col-lg-4 bg-secundario p-4 d-flex flex-column align-items-center">
                 <img th:src="@{/images/otros/calculator.png}" class="mb-2" alt="Icono calculadora" width="38">
                 <h3 class="text-principal fs-5">Calculadora de IMC</h3>
-                <p class="text-white text-uppercase">Tu peso es: <span>........</span></p>
+                <p class="text-white text-uppercase" th:if="${mensaje}" th:text="${mensaje}"></p>
                 <div class="calculator">
-                    <form action="">
+                    <form th:action="@{/calcular}" method="get">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="Peso">
-                            <label for="floatingInput">Peso</label>
-                          </div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="Altura">
+                            <input name="altura" type="number" class="form-control" id="floatingInput" placeholder="Altura">
                             <label for="floatingInput">Altura</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <input name="peso" type="number" class="form-control" id="floatingInput" placeholder="Peso">
+                            <label for="floatingInput">Peso</label>
+                        </div>
+                        <p class="text-danger" th:if="${error}" th:text="${error}"></p>
                         <button type="submit" class="btn btn-principal w-100">Calcular</button>
                     </form>
                 </div>

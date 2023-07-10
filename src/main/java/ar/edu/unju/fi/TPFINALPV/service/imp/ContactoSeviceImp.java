@@ -44,5 +44,5 @@ public class ContactoSeviceImp implements IContactoService {
 		List <Contacto> lista = contactoRepository.findByEstado(true); 
 		return lista;
 	}
-	
+
 }

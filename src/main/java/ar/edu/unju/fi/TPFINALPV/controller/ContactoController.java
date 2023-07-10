@@ -13,16 +13,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.TPFINALPV.entity.Contacto;
 import ar.edu.unju.fi.TPFINALPV.service.IContactoService;
+import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/contactos")
 public class ContactoController {
     @Autowired
-    IContactoService contactoService;
+    private IContactoService contactoService;
 
     @Autowired
     private Contacto formContacto;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * Muestra el formulario de contacto
@@ -32,6 +36,7 @@ public class ContactoController {
      */
     @GetMapping("/formulario")
     public String getContactos(Model model) {
+        model.addAttribute("sesion", userService.getSesion());
         model.addAttribute("formContactos", formContacto);
         return "contactos";
     }
@@ -55,6 +60,7 @@ public class ContactoController {
             formContactos.setContactoNull(formContactos);
             modelView.addObject("alerta", true);
         }
+        modelView.addObject("sesion", userService.getSesion());
         return modelView;
     }
 
@@ -68,6 +74,7 @@ public class ContactoController {
     @GetMapping("/eliminar/{id}")
     public String getListaActualizada(Model model, @PathVariable(value = "id") Long id) {
         contactoService.eliminarContacto(id);
+        model.addAttribute("sesion", userService.getSesion());
         model.addAttribute("contactoGuardar", contactoService.getListaDeContactos());
         if (contactoService.getListaDeContactos().size() == 0) {
             model.addAttribute("MensajeAlertaVacio", true);
@@ -84,6 +91,7 @@ public class ContactoController {
     @GetMapping("/mensajes")
     public String getListaMensajes(Model model) {
         model.addAttribute("contactoGuardar", contactoService.getListaDeContactos());
+        model.addAttribute("sesion", userService.getSesion());
         if (contactoService.getListaDeContactos().size() == 0) {
             model.addAttribute("MensajeAlertaVacio", true);
         }

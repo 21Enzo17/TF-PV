@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unju.fi.TPFINALPV.entity.Testimonio;
 import ar.edu.unju.fi.TPFINALPV.service.IAutorService;
 import ar.edu.unju.fi.TPFINALPV.service.ITestimonioService;
+import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -33,6 +34,8 @@ public class TestimonioController {
 	
     @Autowired
     private Testimonio formTestimonio;
+
+    @Autowired IUserService userService;
     
 	 /**
      * Método que muestra la página de testimonios
@@ -41,6 +44,7 @@ public class TestimonioController {
      */
     @GetMapping("/listado")
     public String getTestimonio(Model model){
+        model.addAttribute("sesion", userService.getSesion());
     	model.addAttribute("buscado");
     	model.addAttribute("listaTestimonio", testimonioService.getTestimonio());
     	model.addAttribute("listaAutores", autorService.getDisponibles());
@@ -54,6 +58,7 @@ public class TestimonioController {
      */
     @GetMapping("/nuevo-testimonio")
     public String getnuevoTestimonio(Model model) { 	
+        model.addAttribute("sesion", userService.getSesion());
     	model.addAttribute("listaAutor", testimonioService.getTestimonio());
     	model.addAttribute("listaAutores", autorService.getDisponibles());
         model.addAttribute("formTestimonio",formTestimonio);
@@ -75,9 +80,11 @@ public class TestimonioController {
           if(result.hasErrors()) {
               modelView = new ModelAndView("nuevo-testimonio");
               modelView.addObject("listaAutores",autorService.getDisponibles());
+              modelView.addObject("sesion", userService.getSesion());
           }else {
         	  nuevoTestimonio.setFecha(LocalDate.now());
               modelView = new ModelAndView ("testimonios");
+              modelView.addObject("sesion", userService.getSesion());
               testimonioService.addTestimonio(nuevoTestimonio);
               modelView.addObject("listaTestimonio", testimonioService.getDisponibles());
               modelView.addObject("listaAutores",autorService.getDisponibles());
@@ -96,6 +103,7 @@ public class TestimonioController {
      */
     @GetMapping("/eliminar-testimonios/{id}")
     public String eliminarTestimonio(@PathVariable(value="id")long id,Model model){
+        model.addAttribute("sesion", userService.getSesion());
         Testimonio testimonio = testimonioService.findTestimonioById(id);
     	testimonioService.eliminarTestimonio(testimonio);
     	model.addAttribute("listaTestimonio", testimonioService.getDisponibles());
@@ -111,6 +119,7 @@ public class TestimonioController {
      */
     @GetMapping("/editar-testimonios/{id}")
     public String editarTestimonios(@PathVariable(value="id")long id,Model model){
+        model.addAttribute("sesion", userService.getSesion());
         model.addAttribute("listaAutores", autorService.getDisponibles());
     	model.addAttribute("testimoniosEditar", testimonioService.findTestimonioById(id));
     	return "modificar-testimonio";
@@ -126,6 +135,7 @@ public class TestimonioController {
     	ModelAndView modelView;
         if(result.hasErrors()){
             modelView = new ModelAndView("modificar-testimonio");
+            modelView.addObject("sesion", userService.getSesion());
             modelView.addObject("listaAutores", autorService.getDisponibles());
         }else{
         	Testimonio testimonio = testimonioService.findTestimonioById(modificado.getId());
@@ -134,6 +144,7 @@ public class TestimonioController {
         	testimonio.setAutor(modificado.getAutor());
             testimonioService.addTestimonio(testimonio);
         	modelView = new ModelAndView("testimonios");
+            modelView.addObject("sesion", userService.getSesion());
         	modelView.addObject("listaTestimonio", testimonioService.getDisponibles());
         	modelView.addObject("listaAutores", autorService.getDisponibles());
         }
@@ -148,6 +159,7 @@ public class TestimonioController {
   @GetMapping("buscar-testimonio")
    public ModelAndView buscarByNombreAutor(@RequestParam("nombre") String buscado, Model model){
       ModelAndView modelView = new ModelAndView("testimonios");
+      modelView.addObject("sesion", userService.getSesion());
       List<Testimonio> coincidenteList = new ArrayList<Testimonio>();
       List<Testimonio> autorList = new ArrayList<Testimonio>();
       if(!buscado.isEmpty()) {
