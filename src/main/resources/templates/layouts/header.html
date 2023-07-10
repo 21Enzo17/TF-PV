@@ -34,7 +34,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-principal" href="#">Testimonios</a>
+                            <a class="nav-link text-principal" th:href="@{/testimonios/listado}">Testimonios</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-principal" th:href="@{/recetas/listado}" >Recetas</a>
@@ -43,6 +43,9 @@
                             <a class="nav-link text-principal" th:href="@{/contactos/formulario}">Contacto</a>
                         </li>
                         </div>
+                                   <!-- <li><a class="dropdown-item fw-bold" th:href="@{/autor/listado}">Gestion Autores</a></li>
+                                    <li><a class="dropdown-item fw-bold" th:href="@{/testimonios/listado}">Gestion Testimonios</a></li> -->
+
                         <div class="gestion fs-5 d-flex gap-3">
                             <div class="no-sesion d-flex gap-3" th:if="${sesion == null}">
                                 <li class="nav-item">
@@ -64,10 +67,6 @@
                             </div>
                         </div>
                     </ul>
-                    <!--<div class="buttons">
-                        
-                        
-                    </div>-->
                 </div>
             </div>
         </nav>
