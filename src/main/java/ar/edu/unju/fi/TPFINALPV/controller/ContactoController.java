@@ -13,16 +13,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.TPFINALPV.entity.Contacto;
 import ar.edu.unju.fi.TPFINALPV.service.IContactoService;
+import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/contactos")
 public class ContactoController {
     @Autowired
-    IContactoService contactoService;
+    private IContactoService contactoService;
 
     @Autowired
     private Contacto formContacto;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * Muestra el formulario de contacto
@@ -32,6 +36,7 @@ public class ContactoController {
      */
     @GetMapping("/formulario")
     public String getContactos(Model model) {
+        model.addAttribute("sesion", userService.getSesion());
         model.addAttribute("formContactos", formContacto);
         return "contactos";
     }
