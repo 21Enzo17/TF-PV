@@ -29,6 +29,7 @@ public class UsuarioController {
 
     @GetMapping("/nuevo-usuario")
     public String getUserForm(Model model){
+        user = userService.getSesion();
         model.addAttribute("formUsuario", formUsuario);
         return "registro";
     }
@@ -63,8 +64,18 @@ public class UsuarioController {
 
     @GetMapping("/editar-usuario")
     public String modificarUsuario(Model model){
-        model.addAttribute("logueado", false);
-        return "modificar-usuario";
+        user = userService.getSesion();
+        model.addAttribute("sesion", user);
+        if(user == null){
+            model.addAttribute("logueado", false);
+            return "login";
+        }else{
+            model.addAttribute("formUsuario", user);
+            model.addAttribute("logueado", true);
+            return "modificar-usuario";
+        }
+        
+        
     }
 
     @GetMapping("/login")
@@ -91,17 +102,23 @@ public class UsuarioController {
     }
 
     @GetMapping("/auth")
-    public ModelAndView authUser(@RequestParam Long iduser){
+    public ModelAndView authUser(@RequestParam String iduser){
         ModelAndView modelview;
-        User user = userService.findByUser(iduser);
-        if (user != null){
-            userService.setSesion(user);
-            modelview = new ModelAndView("index");
-            modelview.addObject("sesion", user);
-        } else {
+        if(iduser.equals(null) || iduser.equals("")){
             modelview = new ModelAndView("login");
-            modelview.addObject("error", "No se encontro el usuario");
+            modelview.addObject("error", "Envie datos validos");
+        }else{
+            User user = userService.findByUser(Long.parseLong(iduser));
+            if (user != null){
+                userService.setSesion(user);
+                modelview = new ModelAndView("index");
+                modelview.addObject("sesion", user);
+            }else {
+                modelview = new ModelAndView("login");
+                modelview.addObject("error", "No se encontro el usuario");
+            }
         }
+        
         return modelview;
     }
 

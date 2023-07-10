@@ -13,6 +13,7 @@ public class IndexController {
     IUserService userService;
     @GetMapping("/index")
     public String getIndexPage(Model model){
+        model.addAttribute("sesion", userService.getSesion());
         return "index";
     }
 

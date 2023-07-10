@@ -56,6 +56,7 @@
                                 <p class="m-0 text-principal" th:text="${'Usuario: ' + sesion.nombre}"></p>
                                 <li class="nav-item">
                                     <a class=" nav-link text-principal btn-secundario rounded" th:href="@{/administracion}" th:if="${sesion.permisos}">Administración</a>
+                                    <a class=" nav-link text-principal btn-secundario rounded" th:href="@{/usuario/editar-usuario}" th:unless="${sesion.permisos}">Editar Usuario</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class=" nav-link text-principal btn-secundario rounded" th:href="@{/usuario/logout}">Log Out</a>
