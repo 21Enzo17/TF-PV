@@ -4,6 +4,7 @@ import ar.edu.unju.fi.TPFINALPV.entity.Receta;
 import ar.edu.unju.fi.TPFINALPV.service.ICategoriaService;
 import ar.edu.unju.fi.TPFINALPV.service.IIngredienteService;
 import ar.edu.unju.fi.TPFINALPV.service.IRecetaService;
+import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import ar.edu.unju.fi.TPFINALPV.util.UploadFile;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class RecetaController {
     ICategoriaService categoriaService;
     @Autowired
     UploadFile uploadFile;
+    @Autowired
+    IUserService userService;
 
     /**
      * endpoint que permite listar todas las recetas activas
@@ -39,7 +42,7 @@ public class RecetaController {
     @GetMapping("/listado")
     public String getRecetasPage(Model model) {
         model.addAttribute("recetas", recetaService.listarRecetasActivas());
-        System.out.println(recetaService.listarRecetasActivas());
+        model.addAttribute("sesion", userService.getSesion());
         return "recetas";
     }
 
@@ -53,6 +56,7 @@ public class RecetaController {
         model.addAttribute("recetaForm", recetaService.getReceta());
         model.addAttribute("ingredientes", ingredienteService.listarIngredientesActivos());
         model.addAttribute("categorias", categoriaService.listarCategoriasActivas());
+        model.addAttribute("sesion", userService.getSesion());
         return "nueva-receta";
     }
 
@@ -72,6 +76,7 @@ public class RecetaController {
             modelView.addObject("receta", receta);
             modelView.addObject("ingredientes", ingredienteService.listarIngredientesActivos());
             modelView.addObject("categorias", categoriaService.listarCategoriasActivas());
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
         else {
@@ -80,6 +85,7 @@ public class RecetaController {
             receta.setImagen(uniqueFileName);
             recetaService.saveReceta(receta);
             modelView.addObject("recetas", recetaService.listarRecetasActivas());
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
     }
@@ -94,6 +100,7 @@ public class RecetaController {
         model.addAttribute("recetaForm", recetaService.buscarReceta(id));
         model.addAttribute("ingredientes", ingredienteService.listarIngredientesActivos());
         model.addAttribute("categorias", categoriaService.listarCategoriasActivas());
+        model.addAttribute("sesion", userService.getSesion());
         return "modificar-receta";
     }
 
@@ -113,6 +120,7 @@ public class RecetaController {
             modelView.addObject("recetaForm", receta);
             modelView.addObject("ingredientes", ingredienteService.listarIngredientesActivos());
             modelView.addObject("categorias", categoriaService.listarCategoriasActivas());
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
         else {
@@ -125,6 +133,7 @@ public class RecetaController {
             }
             recetaService.saveReceta(receta);
             modelView.addObject("recetas", recetaService.listarRecetasActivas());
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
     }
@@ -139,6 +148,7 @@ public class RecetaController {
         ModelAndView modelView = new ModelAndView("recetas");
         recetaService.eliminarReceta(id);
         modelView.addObject("recetas", recetaService.listarRecetasActivas());
+        modelView.addObject("sesion", userService.getSesion());
         return modelView;
     }
 

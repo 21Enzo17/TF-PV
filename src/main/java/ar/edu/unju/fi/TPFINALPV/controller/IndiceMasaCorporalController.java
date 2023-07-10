@@ -35,6 +35,7 @@ public class IndiceMasaCorporalController {
 
     @Autowired
     private User user;
+
     /**
      * Metodo que retorna la pagina calculadora
      * @param model
@@ -42,8 +43,19 @@ public class IndiceMasaCorporalController {
      */
     @GetMapping("/calculadora")
     public String getCalculadora(Model model) {
-        model.addAttribute("logueado", false);
-        return "imc";
+        user = userService.getSesion();
+        model.addAttribute("sesion", user);
+        if(user == null){
+            model.addAttribute("logueado", false);
+            return "login";
+        }else{
+            model.addAttribute("user", user);
+            model.addAttribute("logueado", true);
+            model.addAttribute("listaImc", indiceMasaCorporalService.getAllIMC(user));
+            model.addAttribute("nuevoImc", imc);
+            return "imc";
+        }
+        
     }
     /**
      * Metodo que permite el logueo de un usuario
@@ -53,6 +65,7 @@ public class IndiceMasaCorporalController {
      */
     @GetMapping("/login")
     public String getCalculadoraLogueado(@RequestParam("id")String id,Model model){
+        model.addAttribute("sesion", user);
         if(id.equals(null) || id.equals("")){
             model.addAttribute("logueado", false);
             model.addAttribute("error", "Envie datos validos");
@@ -82,6 +95,7 @@ public class IndiceMasaCorporalController {
     public ModelAndView nuevoImc(@Valid @ModelAttribute("nuevoImc")IndiceMasaCorporal imc,BindingResult result,@RequestParam("usuario") Long id){
         ModelAndView modelView = new ModelAndView("imc");
         user=userService.findByUser(id);
+        modelView.addObject("sesion", user);
         if(result.hasErrors()){
             modelView.addObject("logueado", true);
             modelView.addObject("user", user);

@@ -2,6 +2,7 @@ package ar.edu.unju.fi.TPFINALPV.controller;
 
 import ar.edu.unju.fi.TPFINALPV.entity.Ingrediente;
 import ar.edu.unju.fi.TPFINALPV.service.IIngredienteService;
+import ar.edu.unju.fi.TPFINALPV.service.IUserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class IngredienteController {
     @Autowired
     IIngredienteService ingredienteService;
+    @Autowired
+    IUserService userService;
 
     /**
      * endpoint que permite listar todos los ingredientes activos
@@ -24,6 +27,7 @@ public class IngredienteController {
     @GetMapping("/listado")
     public String getIngredientesPage(Model model) {
         model.addAttribute("ingredientes", ingredienteService.listarIngredientesActivos());
+        model.addAttribute("sesion", userService.getSesion());
         return "ingredientes";
     }
 
@@ -35,6 +39,7 @@ public class IngredienteController {
     @GetMapping("/nuevo-ingrediente")
     public String getNuevoIngredientePage(Model model) {
         model.addAttribute("ingredienteForm", ingredienteService.getIngrediente());
+        model.addAttribute("sesion", userService.getSesion());
         return "nuevo-ingrediente";
     }
 
@@ -50,12 +55,14 @@ public class IngredienteController {
         if (result.hasErrors()) {
             modelView = new ModelAndView("nuevo-ingrediente");
             modelView.addObject("ingredienteForm", ingrediente);
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
         else {
             ingredienteService.saveIngrediente(ingrediente);
             modelView = new ModelAndView("ingredientes");
             modelView.addObject("ingredientes", ingredienteService.listarIngredientesActivos());
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
     }
@@ -69,6 +76,7 @@ public class IngredienteController {
     @GetMapping("/editar-ingrediente/{id}")
     public String getEditarIngredientePage(Model model, @PathVariable Long id) {
         model.addAttribute("ingredienteForm", ingredienteService.buscarIngrediente(id));
+        model.addAttribute("sesion", userService.getSesion());
         return "modificar-ingrediente";
     }
 
@@ -84,12 +92,14 @@ public class IngredienteController {
         if (result.hasErrors()) {
             modelView = new ModelAndView("modificar-ingrediente");
             modelView.addObject("ingredienteForm", ingrediente);
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
         else {
             ingredienteService.saveIngrediente(ingrediente);
             modelView = new ModelAndView("ingredientes");
             modelView.addObject("ingredientes", ingredienteService.listarIngredientesActivos());
+            modelView.addObject("sesion", userService.getSesion());
             return modelView;
         }
     }
@@ -104,6 +114,7 @@ public class IngredienteController {
         ModelAndView modelView = new ModelAndView("ingredientes");
         ingredienteService.eliminarIngrediente(id);
         modelView.addObject("ingredientes", ingredienteService.listarIngredientesActivos());
+        modelView.addObject("sesion", userService.getSesion());
         return modelView;
     }
 }

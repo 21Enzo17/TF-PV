@@ -10,5 +10,6 @@ public interface IUserService {
     public void addUser(User user);
 
     public User findByUser(Long id);
-
+    public User getSesion();
+    public void setSesion(User user);
 }

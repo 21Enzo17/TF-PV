@@ -30,11 +30,10 @@
                             <ul class="dropdown-menu ">
                                 <li><a class="dropdown-item fw-bold" th:href="@{/imc/calculadora}">CALCULAR IMC</a></li>
                                 <li><a class="dropdown-item fw-bold" th:href="@{/pesoideal}">PESO IDEAL</a></li>
-                                <li><a class="dropdown-item fw-bold" href="#">RECETAS</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-principal" href="#">Testimonios</a>
+                            <a class="nav-link text-principal" th:href="@{/testimonios/listado}">Testimonios</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-principal" th:href="@{/recetas/listado}" >Recetas</a>
@@ -43,31 +42,30 @@
                             <a class="nav-link text-principal" th:href="@{/contactos/formulario}">Contacto</a>
                         </li>
                         </div>
-                        <div class="gestion fs-5 d-flex">
-                            <li class="nav-item">
-                                <a class=" nav-link text-principal btn-principal rounded" th:href="@{/nuevo-usuario}" >Registrarme</a>
-                            </li>
-                            <!--<button class="btn btn-principal rounded" ></button>-->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-principal" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Gestion
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end">
-                                    <li><a class="dropdown-item fw-bold" href="#">Gestion Recetas</a></li>
-                                    <li><a class="dropdown-item fw-bold" href="#">...</a></li>
-                                    <li><a class="dropdown-item fw-bold" th:href="@{/recetas/nueva-receta}">Nueva Receta</a></li>
-                                    <li><a class="dropdown-item fw-bold" th:href="@{/ingredientes/nuevo-ingrediente}">Nuevo Ingrediente</a></li>
-                                    <li><a class="dropdown-item fw-bold" th:href="@{/categorias/nueva-categoria}">Nueva Categoria</a></li>
+                                   <!-- <li><a class="dropdown-item fw-bold" th:href="@{/autor/listado}">Gestion Autores</a></li>
+                                    <li><a class="dropdown-item fw-bold" th:href="@{/testimonios/listado}">Gestion Testimonios</a></li> -->
 
-                                </ul>
-                            </li>
+                        <div class="gestion fs-5 d-flex gap-3">
+                            <div class="no-sesion d-flex gap-3" th:if="${sesion == null}">
+                                <li class="nav-item">
+                                    <a class=" nav-link text-principal btn-principal rounded" th:href="@{/usuario/nuevo-usuario}" >Registrarme</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class=" nav-link text-principal btn-principal rounded" th:href="@{/usuario/sign-in}" >Iniciar sesion</a>
+                                </li>
+                            </div>
+                            <div class="sesion d-flex gap-3 align-items-center" th:if="${sesion}">
+                                <p class="m-0 text-principal" th:text="${'Usuario: ' + sesion.nombre}"></p>
+                                <li class="nav-item">
+                                    <a class=" nav-link text-principal btn-secundario rounded" th:href="@{/administracion}" th:if="${sesion.permisos}">Administración</a>
+                                    <a class=" nav-link text-principal btn-secundario rounded" th:href="@{/usuario/editar-usuario}" th:unless="${sesion.permisos}">Editar Usuario</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class=" nav-link text-principal btn-secundario rounded" th:href="@{/usuario/logout}">Log Out</a>
+                                </li>
+                            </div>
                         </div>
                     </ul>
-                    <!--<div class="buttons">
-                        
-                        
-                    </div>-->
                 </div>
             </div>
         </nav>
