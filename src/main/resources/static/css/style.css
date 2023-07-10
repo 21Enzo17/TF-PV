@@ -173,6 +173,7 @@ textarea {
 	height: 60px;
 	margin-bottom: 10px;
 	font-family: 'Poppins', sans-serif;
+}
   /* Peso Ideal */
 .mainpi {
     width: 100%;
@@ -187,7 +188,7 @@ textarea {
         1px -1px 0 white,
         -1px 1px 0 white,
         1px 1px 0 white;
-
+}
 /* RECETAS */
 .receta .informacion-general {
     border-radius: 10px 10px 0 0;

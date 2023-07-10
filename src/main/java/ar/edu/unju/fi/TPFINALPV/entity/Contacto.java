@@ -67,4 +67,13 @@ public class Contacto {
 		public void setMensaje(String mensaje) {
 			this.mensaje = mensaje;
 		}
+
+		public void setContactoNull(Contacto contacto){
+			this.ciudad=null;
+			this.email=null;
+			this.estado=false;
+			this.mensaje=null;
+			this.id=null;
+			this.nombre=null;
+		}
 }
