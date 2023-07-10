@@ -40,31 +40,38 @@
 								de usuario</label>
 							<div class="input-group">
 								<div class="input-group-text">Cod-Usuario</div>
-								<input type="number" class="form-control" name="codigo"
-									id="inlineFormInputGroupUsername" placeholder="Ejm-01334" required>
+								<input type="number" class="form-control exception"
+									name="codigo" id="inlineFormInputGroupUsername"
+									placeholder="Ejm-01334" required>
 							</div>
 						</div>
 						<div class="col-12">
 							<button class="btn btn-principal text-white" type="submit">Enviar</button>
 						</div>
 					</form>
+						<p th:if="${error}" class="fw-lighter fst-italic">No se encontró el codigo,asegurate que sea el correcto</p>
 				</div>
 			</div>
 			<div
-				class="col h-100 d-flex flex-column align-items-center justify-content-center">
-				<div th:if=${info}>
+				class="col h-100 d-flex flex-column align-items-center justify-content-center">			
 					<h1 class="h1 fs-4 fw-bold text-principal texto-con-borde">
-						Bien hecho <span></span>
+						Mira Tu resultado acá</h1>			
+				<div th:if=${encontrado}>
+					<h1 class="h1 fs-4 fw-bold text-principal texto-con-borde">
+						Bien hecho <span th:text="${usuario.nombre}+''+${usuario.apellido}"></span>
 					</h1>
-				<p class="fs-4 fw-bold" style="text-align: center;">
-					Tu peso Ideal es <br> <strong class="fs-4 fw-bold">72,2
-						kgs.</strong>
-				</p>
-				</div>
-				<div>
-					<h1 class="h1 fs-4 fw-bold text-principal texto-con-borde">
-						Mira Tu resultado acá 
-					</h1>				
+					<p class="fs-3 fw-bold" style="text-align: center;">
+						Edad <strong class="fs-3 fw-bold" th:text="${edad}">
+							</strong><span> años.</span>
+					</p>
+					<p class="fs-3 fw-bold" style="text-align: center;">
+						Estatura  <strong class="fs-3 fw-bold" th:text="${usuario.estatura}">
+							</strong><span> cm.</span>
+					</p>
+					<p class="fs-4 fw-bold" style="text-align: center;">
+						Tu peso Ideal es <br> <strong class="fs-4 fw-bold" th:text="${pesoIdeal}">
+							</strong><span> KGS.</span>
+					</p>
 				</div>
 			</div>
 			<div class="information-boxes container-fluid">
@@ -73,8 +80,9 @@
 						class="box col-12 col-lg-6 bg-secundario p-4 d-flex flex-column align-items-center">
 						<img th:src="@{/images/otros/interrogante.png}" class="mb-2"
 							alt="Icino testimonio" width="38">
-						<h3 class="text-principal fs-5">¿ PARA QUÉ SABER MI PESO IDEAL ?</h3>
-						<p class="text-white" style="text-align:center;">Tu peso
+						<h3 class="text-principal fs-5">¿ PARA QUÉ SABER MI PESO
+							IDEAL ?</h3>
+						<p class="text-white" style="text-align: center;">Tu peso
 							ideal es el que te permite tener una buena salud y un buen
 							funcionamiento de tu organismo. Según algunos expertos, el peso
 							ideal se puede calcular usando el índice de masa corporal (IMC),
@@ -87,14 +95,14 @@
 						<img th:src="@{/images/otros/recipe.png}" class="mb-2"
 							alt="Icono receta" width="38">
 						<h3 class="text-white fs-5">NO LO OLVIDES</h3>
-						<p class="text-white" style="text-align:center;">Mantener tu
+						<p class="text-white" style="text-align: center;">Mantener tu
 							peso ideal es importante por varias razones, como: Ayuda a que te
 							sientas mejor y con más energía. Reduce el riesgo y la severidad
 							de enfermedades cardíacas, diabetes, hipertensión, artritis y
 							algunos tipos de cáncer23. Mejora tu condición física y tu
 							capacidad para realizar actividades cotidianas3. Favorece tu
 							autoestima y tu bienestar emocional.</p>
-					</div>			
+					</div>
 				</div>
 			</div>
 			<div

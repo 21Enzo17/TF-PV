@@ -1,59 +1,59 @@
 package ar.edu.unju.fi.TPFINALPV.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Past;
 
 @Component
 @Entity
 @Table(name = "Registro Peso Ideal Usuarios")
 public class PesoIdeal {
 
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column
-    private String usuario;
+	@Column(name="usuario")
+	private String usuario;
 
-    @Column(name = "Fecha de consulta")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate fecha=LocalDate.now();
+	@Column(name = "Fecha de consulta")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fecha;
 
-    @Column(name = "Edad Usuario")
-    private int edad;
-    
-    @Column(name = "peso ideal")
-    private float valor;
+	@Column(name = "Edad Usuario")
+	private int edad;
 
-    @Column(name = "Estado")
-    private boolean estado=true;
-    
-    
+	@Column(name = "Estatura")
+	private float estatura;
+
+	public float getEstatura() {
+		return estatura;
+	}
+
+	public void setEstatura(float estatura) {
+		this.estatura = estatura;
+	}
+
+	@Column(name = "peso ideal")
+	private float valor;
+
+	@Column(name = "Estado")
+	private boolean estado = true;
 
 	public PesoIdeal() {
 		super();
 	}
 
-	public PesoIdeal(Long id, String usuario, LocalDate fecha, int edad, float valor, boolean estado) {
+	public PesoIdeal(String usuario, int edad, float estatura, float valor) {
 		super();
-		this.id = id;
 		this.usuario = usuario;
-		this.fecha = fecha;
 		this.edad = edad;
+		this.estatura = estatura;
 		this.valor = valor;
-		this.estado = estado;
+		this.fecha = LocalDate.now();
+		this.estado = true;
 	}
 
 	public Long getId() {
@@ -104,5 +104,10 @@ public class PesoIdeal {
 		this.estado = estado;
 	}
 
+	@Override
+	public String toString() {
+		return "PesoIdeal [id=" + id + ", usuario=" + usuario + ", fecha=" + fecha + ", edad=" + edad + ", estatura="
+				+ estatura + ", valor=" + valor + ", estado=" + estado + "]";
+	}
 
 }
