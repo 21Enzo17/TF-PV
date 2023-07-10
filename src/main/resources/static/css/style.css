@@ -12,6 +12,7 @@ body {
     font-size: 14px;
     background-color: #fff;
     color: #000;
+    overflow-x: hidden;
 }
 
 .h1 {

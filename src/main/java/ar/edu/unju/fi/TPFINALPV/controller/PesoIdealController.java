@@ -46,6 +46,7 @@ public class PesoIdealController {
             modelView.addObject("encontrado",false);
         }
         modelView.addObject("sesion",user);
+        userService.setSesion(user);
         return modelView;
     }
 

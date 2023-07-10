@@ -12,4 +12,5 @@ public interface IUserService {
     public User findByUser(Long id);
     public User getSesion();
     public void setSesion(User user);
+    public List<User> getUsuarios();
 }

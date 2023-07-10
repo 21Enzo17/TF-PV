@@ -40,13 +40,28 @@ public class UserServiceImp implements IUserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Metodo que obtiene la sesion de un usuario
+     * @return
+     */
     @Override
     public User getSesion(){
         return session;
     }
 
+    /**
+     * Metodo que setea la sesion de un usuario
+     * @param user
+     */
     @Override
     public void setSesion(User user){
         this.session = user;
+    }
+
+    /**
+     * Metodo que retorna la lista de usuarios
+     */
+    public List<User> getUsuarios(){
+        return (List<User>) userRepository.findAll();
     }
 }

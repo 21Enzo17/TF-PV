@@ -128,4 +128,12 @@ public class UsuarioController {
         userService.setSesion(null);
         return modelview;
     }
+
+    @GetMapping("/listar-usuarios")
+    public ModelAndView getUsuarios(){
+        ModelAndView modelview = new ModelAndView("lista-usuarios");
+        modelview.addObject("usuarios", userService.getAllUsuarios());
+        modelview.addObject("sesion", userService.getSesion());
+        return modelview;
+    }
 }

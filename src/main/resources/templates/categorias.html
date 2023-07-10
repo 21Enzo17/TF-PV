@@ -15,7 +15,7 @@
 <body>
     <header th:replace="~{layouts/header :: header}"></header>
     <div class="container-fluid p-5">
-        <h2 class="text-principal mb-4">Categorias</h2>
+        <h2 class="titular mb-4">Categorias</h2>
         <div class="categorias">
             <div th:each="categoria : ${categorias}" class="categoria d-flex justify-content-between align-items-center gap-3 mb-4">
                 <span class="fs-5" th:text="${categoria.nombre}"></span>
