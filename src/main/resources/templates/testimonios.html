@@ -15,12 +15,14 @@
 	<div class="container-xxl my-4">
 		<div class ="row gap-4 justify-content-evenly">
 			<form class="d-flex mt-2" role="search" th:action="@{/testimonios/buscar-testimonio}"  method="get">
-				<input name="nombre" id="nombre" class="form-control me-2" required type="search"  placeholder="Buscar Testimonio por Nombre de Autor" aria-label="Search">
+				<input name="nombre" id="nombre" class="form-control me-2" type="search"  placeholder="Buscar Testimonio por Nombre de Autor" aria-label="Search">
 				<button class="btn btn-outline-success"  type="submit">Buscar</button>
 			</form>
-			<div th:if="${alerta}"  class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+			<div th:if="${alerta}" class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
 				<p><strong>No hubo coincidencias. </strong>Prueba con otras palabras.</p>
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<div th:if="${error}" class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+				<p>Se debe ingresar un nombre de autor para realizar la busqueda de testimonios</p>
 			</div>
 			<div>
 				<article th:each="testimonio:${listaTestimonio}" class="lista-testimonios col-12 p-4 my-3 mb-4 px-4">
